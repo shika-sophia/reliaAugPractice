@@ -1,3 +1,9 @@
+/**
+ * @title chapter3 / Practice 3-3 Advanst
+ * @RDD 文字列を入力して１文字ずつのUnicodeを表示。
+ * @author Oshika
+ * @date 2020-08-06 / 9:00-10:30
+ */
 package chapter3;
 
 import java.util.ArrayList;
