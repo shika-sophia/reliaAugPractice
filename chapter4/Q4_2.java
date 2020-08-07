@@ -47,7 +47,7 @@ public class Q4_2 {
       int fishNum = 0;
 
       //---- judge size ----
-      if (size > 0 && size <= 19) {
+      if (size > 0 && size < 20) {
           fishNum = 1;
       } else if (size >= 20 && size < 40) {
           fishNum = 2;
