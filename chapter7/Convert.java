@@ -19,7 +19,9 @@ public class Convert {
         String replace = line.replace('。', '.');
         replace = replace.replace('、', ',');
         System.out.println(replace);
-    }
+    }//if
+
+    scn.close();
   }//main()
 
 }//class
