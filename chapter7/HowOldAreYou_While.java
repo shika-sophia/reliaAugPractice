@@ -2,14 +2,36 @@
  * @title chapter7 / Additional Quest / HowOldAreYou_While
  * @class while
  * @author Oshika
- * @date 2020-08-17 / 9:30-10:00
- *
-//【註: クラスファイルでの動作確認できませんでした】
-題意の GridShow2は どのクラスなのか見つかりませんでした。
-HowOldAreYouは、List 3-5でやりましたが、7章追加問題で配布されたクラスファイル
-「HowOldAreYou_While」とクラス名が違うため、おそらく動作しないかと・・
+ * @date 2020-08-17 / 13:00-13:30
+ * @RDD
+//C:\Users\sophia\Desktop>java HowOldAreYou_While
+名前を入力してください。
+shika
 
-たぶんwhile文を使うとしたら、こんなコードかなというものを作ってみました。
+shikaさん、こんにちは。年齢を入力してください。
+24
+
+10年後のshikaさんは、34歳ですね。
+
+C:\Users\sophia\Desktop>java HowOldAreYou_While
+名前を入力してください。
+shika
+
+shikaさん、こんにちは。年齢を入力してください。
+shika
+
+年齢を数字で入力してください。
+-50
+
+年齢がマイナスになっています。
+もう一度、入力し直してください。
+0.5
+
+年齢を数字で入力してください。
+24
+
+10年後のshikaさんは、34歳ですね。
+
  */
 
 package chapter7;
@@ -67,6 +89,9 @@ shikaさん、こんにちは。
 年齢を入力してください。shika
 年齢が正しくありません。
 
+//【考察】
+ * 実行結果から無効入力を判定する永久ループなので、
+ * このコードで良いと思う。
  */
 
 
