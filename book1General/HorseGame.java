@@ -3,8 +3,31 @@
  * @contents Random
  * @author Oshika
  * @date 2020-08-19 / 14:30-19:00
- * @date 2020-08-20 /
+ * @date 2020-08-21 / 09:00-
+ *
+ * @classChart
+ *    class HorseGame
+ *    method
+ *    +public -private / method(引数) / returnの型
+ *      + main() / void
+ *          各メソッド呼び出しをして表示する。controleとview機能。
+ *
+ *      - buildInfo() / String
+ *          ルール説明のStringBuilder
+ *
+ *      - comOrder() / String[]
+ *          相手の出走順をランダムで決定
+ *
+ *      - userOrder(String[] comOrder) / String[]
+ *          userの出走順をinput。入力チェックと確認表示。view機能はここにも少し出張。
+ *
+ *      - calcHorsePower(String lank) / int
+ *          馬のランクから乱数で走力を決定。
+ *
+ *      - resultChart(comOrder, userOrder, userHorsePower, comHorsePower) / String
+ *          ４つの配列を渡して結果表を作成。
  */
+
 /* RDD: 要件定義
 
 課題2.以下の全ての要件を満たすプログラムを作成してください。
@@ -18,6 +41,7 @@
       意味のない命名(Kadai・test・a・bなど)は禁止。
 条件およびコメント等の作法が守れていないものは評価対象外となりますので注意してください。
 */
+
 package book1General; //←コマンドプロンプトで実行時はここを削除
 
 import java.util.Random;
@@ -55,13 +79,20 @@ public class HorseGame {
     //userの出走順をinput
     String[] userOrder = userOrder(comOrder);
 
-    //---- calc horsePower ----
-    String lank = "";
-    int horsePower = calcHorsePower(lank);
+    //---- calc horsePower and set them to userHorsePower[],comHorsePower[] ----
+    //userOrder[],comOrder[]からlankを取り出してhorsePowerを計算、新配列に格納
+    int[] userHorsePower = new int[3];
+    int[] comHorsePower = new int[3];
 
-    //---- make matrix to print result ----
+    for (int i = 0; i < userOrder.length; i++) {
+        userHorsePower[i] = calcHorsePower(userOrder[i]);
+        comHorsePower[i] = calcHorsePower(comOrder[i]);
+    }
+
+    //---- make chart to print result ----
     //結果表示のための表を作成
-    result(comOrder, userOrder);
+    String resultChart = resultChart(comOrder, userOrder, userHorsePower, comHorsePower);
+    System.out.println(resultChart);
 
   }//main()
 
@@ -84,7 +115,7 @@ public class HorseGame {
   }//buildInfo()
 
 
-//====== comOrder() ======
+  //====== comOrder() ======
   //相手の出走順をランダムで決めて main()にString[]で返すメソッド
   private static String[] comOrder() {
     int[] diceArray = new int[3];
@@ -232,10 +263,141 @@ public class HorseGame {
   }//calcHorsePower()
 
 
-  //====== resultMatrix() ======
-  private static void result(String[] comOrder, String[] userOrder) {
+  //====== resultChart() ======
+  //結果表示のための表を作成
+  private static String resultChart(String[] comOrder, String[] userOrder,
+                                     int[] userHorsePower, int[] comHorsePower) {
+    //---- StringBuilder ----
+    StringBuilder resultBuilder = new StringBuilder();
+      resultBuilder.append("\t\t\t  ＊　対戦結果　＊\n");
+      resultBuilder.append("+-----------------+--------+----------------+\n");
+      resultBuilder.append("|    あなたの馬   |  勝敗  |    相手の馬    |\n");
+      resultBuilder.append("+--------+--------+--------+--------+-------+\n");
+      resultBuilder.append("|  Lank  | Power  |  You   |  Lank  | Power |\n");
+      resultBuilder.append("+--------+--------+--------+--------+-------+\n");
 
+    int win = 0;
+    int lose = 0;
+    int draw = 0;
+    for(int i = 0; i < userOrder.length; i++) {
+      resultBuilder.append("|   ").append(userOrder[i]).append("   ");
+      resultBuilder.append("|  ").append(String.format("%3d",userHorsePower[i])).append("   ");
 
-  }//resultMatrix()
+      //---- judge winner ----
+
+      if (userHorsePower[i] > comHorsePower[i]) {
+          resultBuilder.append("|  勝ち  ");
+          win++;
+      } else if (userHorsePower[i] == comHorsePower[i]) {
+          resultBuilder.append("|引き分け");
+          draw++;
+      } else if (userHorsePower[i] < comHorsePower[i]) {
+          resultBuilder.append("|  負け  ");
+          lose++;
+      }
+
+      resultBuilder.append("|   ").append(comOrder[i]).append("   ");
+      resultBuilder.append("|  ").append(String.format("%3d",comHorsePower[i])).append("  |\n");
+    }//for i
+      resultBuilder.append("+--------+--------+--------+--------+-------+\n");
+      resultBuilder.append(String.format("\t\t\t  %d勝 %d敗 %d引き分け \n", win, lose, draw));
+    String result = resultBuilder.toString();
+    return result;
+  }//resultChart()
 
 }//class
+
+/*
+//====== Result ======
+    ＊　ルール説明　＊
+３つのランクの馬がいます。
+Ａ(走力120～70)
+Ｂ(走力 90～40)
+Ｃ(走力 60～10)
+
+相手の走力順はあらかじめ判っています。
+あなたは自分の馬の出走順を決めてください。
+
+
+相手の出走順: Ｃ Ａ Ｂ
+あなたの馬の出走順を決めてください。
+1番目の出走は？[ 1. Ａ / 2. Ｂ / 3. Ｃ ]
+b
+2番目の出走は？[ 1. Ａ / 2. Ｂ / 3. Ｃ ]
+c
+3番目の出走は？[ 1. Ａ / 2. Ｂ / 3. Ｃ ]
+a
+1番目の出走: Ｂ  / 相手の馬 Ｃ
+2番目の出走: Ｃ  / 相手の馬 Ａ
+3番目の出走: Ａ  / 相手の馬 Ｂ
+これでよろしいですか？[1. YES / 2. NO]
+1
+            ＊　対戦結果　＊
++-----------------+--------+----------------+
+|    あなたの馬   |  勝敗  |    相手の馬    |
++--------+--------+--------+--------+-------+
+|  Lank  | Power  |  You   |  Lank  | Power |
++--------+--------+--------+--------+-------+
+|   Ｂ   |   88   |  勝ち  |   Ｃ   |   23  |
+|   Ｃ   |   54   |  負け  |   Ａ   |   85  |
+|   Ａ   |   72   |  勝ち  |   Ｂ   |   44  |
++--------+--------+--------+--------+-------+
+             2勝 1敗 0引き分け
+
+
+//====== Note ======
+【ＮＯＴＥ】『孫臏兵法』
+http://www.jpsn.org/report/iwan/5120/
+戦国時代の中国には、王族や将軍達が自分の馬を競走させて賭けをして楽しんだ。
+ある日、軍師孫臏(ｿﾝﾋﾟﾝ)は親友の田将軍が この賭けにどうしても勝てないので勝つ方法を相談に来た。
+この賭けの競走の仕組みは、参加者は自分の持ち馬を三頭出場させて、それぞれ取り組ませる方法で三回出走させていた。
+当然、第一組は一番早い馬同士であり、二番目はその次に速い馬同士となった。三番目は最も遅い馬同士である。
+
+田将軍の馬は三頭ともあまり速くなかった。軍師は田将軍に一番目の出走馬には最も遅い馬を出させた。
+相手は最も早い馬であったので簡単に負けてしまった。
+二番目には最も早い馬を出走させた。相手の二番目に早い馬には勝つことが出来た。
+三番目には、二番目に早い馬を出走させた。これも、相手の一番遅い馬に勝つことが出来た。
+2勝1敗で、総合では賭けに勝つことができ大金と名声を得た。一番目の出走を捨てたことが勝因であった。
+
+
+【考察】
+このゲームを思いついたのは上記の故事をうっすら覚えていて、
+それをＪａｖａで再現してみました。
+てか相手の出走順が判っている時点で情報力(故事では発想の転換)の勝利であって兵法の差ではない。
+でもそれを思いつく孫臏(ｿﾝﾋﾟﾝ)は やっぱりすごい。
+ちなみに相手のＡに対し、負けを承知であてがう馬Ｃのことを「当て馬」と云い
+この言葉はこの故事から来たものかどうか。
+
+私のＪａｖａゲームでは相手の出走順をランダムとし、
+ランクの低い馬も 0.4 * 0.4 = 0.16 約16％の確率で勝てる可能性がある設定にしました。
+
+制作課題を頂いて、簡単なミニゲームのようなものを作れば全ての要件はクリアできると思い、
+このミニゲームにしました。
+単純なミニゲームなので main()と2,3メソッドぐらいで できそうだと思っていたのですが
+単純なルールでも内部的な計算はけっこう複雑で main() + 5メソッドと意外と長くなってしまいました。
+
+苦労したのは、乱数ダイスの重複回避するロジックと
+userインプットの入力チェックの部分ですね。
+
+try-catchを用いなかったのは
+Scannerクラスは catchをされない。Exceptionが出ると値を渡さない仕様のようだ。
+そのため nextInt()は使わず nextLine()でinputし、
+switchのdefaultで全ての入力をチェックすれば Scannerも安全に使える。
+(ただし空enterは やはり対応しきれない)
+
+外部ファイルの読み込みなど IOExceptionの可能性があるときは
+BufferedReaderを使いtry-catchを用意したほうがいい。
+単純なuser inputだけなら Scannerクラスのが使いやすい気がする。
+
+結城氏の説明はスローモーションなど丁寧で初学者に解りやすいテキストだが、
+2012年刊のJava7仕様なので、ちと情報が古いのが残念なところ。
+Java11対応の「第４版」へ更版されることに期待。
+
+StringBuilder中や return式で printf()のフォーマットを使いたいときは
+「String.format("～", 変数, ...)」を使えば入れられることが解った。
+
+他人の書いたコードは読みづらいものなので、冒頭にメソッド一覧を付しました。
+適宜にコメントでプログラム意図の説明を付けましたが
+読みやすいものになっているかどうか。
+
+ */
