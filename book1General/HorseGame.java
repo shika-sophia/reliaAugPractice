@@ -3,7 +3,7 @@
  * @contents Random
  * @author Oshika
  * @date 2020-08-19 / 14:30-19:00
- * @date 2020-08-21 / 09:00-
+ * @date 2020-08-21 / 09:00-13:00
  *
  * @classChart
  *    class HorseGame
@@ -301,6 +301,7 @@ public class HorseGame {
     }//for i
       resultBuilder.append("+--------+--------+--------+--------+-------+\n");
       resultBuilder.append(String.format("\t\t\t  %d勝 %d敗 %d引き分け \n", win, lose, draw));
+
     String result = resultBuilder.toString();
     return result;
   }//resultChart()
