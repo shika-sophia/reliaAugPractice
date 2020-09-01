@@ -100,6 +100,16 @@ java.lang.ArithmeticException: / by zero
     at chapter13.ScannerExceptionQ13_1.main(ScannerExceptionQ13_1.java:64)
 RuntimeException 非検査例外 発生
 
+入力:   (空 enter)
+java.lang.NumberFormatException: For input string: ""
+RuntimeException 非検査例外 発生
+    at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+    at java.base/java.lang.Integer.parseInt(Integer.java:662)
+    at java.base/java.lang.Integer.parseInt(Integer.java:770)
+    at chapter13.ScannerExceptionQ13_1.judgeException(ScannerExceptionQ13_1.java:45)
+    at chapter13.ScannerExceptionQ13_1.<init>(ScannerExceptionQ13_1.java:31)
+    at chapter13.ScannerExceptionQ13_1.main(ScannerExceptionQ13_1.java:65)
+
  */
 
 /*
