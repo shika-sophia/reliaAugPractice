@@ -212,6 +212,7 @@ public class Q14_1_A{
 }//class Q14_1終了
 */
 /*
+//###### Appendix enum definition version ######
 interface ClothColor {
     public enum Color{
         WHITE(0, "白"),
