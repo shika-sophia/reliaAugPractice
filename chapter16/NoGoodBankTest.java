@@ -1,8 +1,8 @@
 /**
- * @title chapter16 / Practice 16-8 / NoGoodBank
+ * @title chapter16 / Practice 16-8, 16-9 / NoGoodBank
  * @content Multi-Thread /
  * @author Oshika
- * @date 2020-09-04 / 1600-
+ * @date 2020-09-04 / 1600-1700
  */
 package chapter16;
 
@@ -106,8 +106,18 @@ Thread[Thread-0,5,main]が addMoney()に入りました
 Thread[Thread-1,5,main]が addMoney()に入りました
 (このまま固まる・・何か おかしいかも)
 
+
 〔答え合わせ〕
 うまく動かんみたい。
 trueになったままスレッドの切り替えが起こる可能性もある。
 不当に待たされ、たまにbusyチェックをし、ＣＰＵの無駄使いだそうな。
  */
+/*
+//====== Practice 16-9 ======
+私の反論
+「シングルスレッドならそれでも良かろう。
+マルチスレッドだと、他人の預金口座valueに、
+自分の給料moneyを振り込んでしまうことが平気で起こる銀行なのだよ。ここは
+だから、BadBankなんじゃないか。君さえ良ければこのままこの銀行でもいいが・・
+一緒に [りそな銀行]にしとこうや」
+*/
