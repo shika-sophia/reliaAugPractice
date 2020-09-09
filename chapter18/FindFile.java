@@ -93,6 +93,7 @@ C:\Users\sophia\Desktop\chapter18_forCommandPrompt>java FindFile System FindFile
 
 
 【メモ】
-while(line != null)だと 検索してくれなかった
+while(line != null)や
+while(line.isEmpty())だと 検索してくれなかった
 while ((line = reader.readLine()) != null)だとＯＫ
 */
