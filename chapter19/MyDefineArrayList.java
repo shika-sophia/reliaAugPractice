@@ -2,7 +2,7 @@
  * @title chapter19 / Practice 19-1, 19-2, 19-3 / MyDefineArrayList
  * @content Collection / ArrayList as inner definition
  * @author Oshika
- * @date 2020-09-11 / 0930-1200, 1300-
+ * @date 2020-09-11 / 0930-1200, 1300-1600
  */
 /*
 //====== Practice 19-1 ======
@@ -134,7 +134,7 @@ public class MyDefineArrayList {
     }//get()
 
     private void overBounds(int n) throws IndexOutOfBoundsException{
-        if (n < 0 && n >= sz) { // n < 0 は〔解答参照〕。解答のszはここのindexCountと同じ(「=」の有無)
+        if (n < 0 || n >= sz) { // n < 0 は〔解答参照〕。解答のszはここのindexCountと同じ(「=」の有無)
             System.out.println("ＳＳ将校「任務失敗」");
             throw new IndexOutOfBoundsException();
         }
@@ -240,8 +240,10 @@ list.size(): 8
 [グーデリアン, (要配属), ポック, (要配属), ルントシュテット, (要配属), (要配属), (要配属), ]
 
 総統令「ロンメルを逮捕せよっ！」
-Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 8 out of bounds for length 8
-    at chapter19.MyDefineArrayList.set(MyDefineArrayList.java:128)
+ＳＳ将校「任務失敗」
+Exception in thread "main" java.lang.IndexOutOfBoundsException
+    at chapter19.MyDefineArrayList.overBounds(MyDefineArrayList.java:139)
+    at chapter19.MyDefineArrayList.set(MyDefineArrayList.java:127)
     at chapter19.MyDefineArrayList.main(MyDefineArrayList.java:201)
 
 
