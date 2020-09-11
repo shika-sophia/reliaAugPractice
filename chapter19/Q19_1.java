@@ -28,12 +28,15 @@ public class Q19_1 {
         }
 
         System.out.println("list: " + list);
+        System.out.println("last element: " + list.get(list.size() - 1));
         System.out.println("size: " + list.size());
     }//main()
 }//class
 
-//list: [42, 71, 83, 87, 53, 6, 73, 18, 38, 32]
+//list: [26, 26, 54, 41, 7, 43, 85, 16, 1, 19]
+//last element: 19
 //size: 10
+
 
 /*
 //###### Appendix / Lamda, Stream Version ######
