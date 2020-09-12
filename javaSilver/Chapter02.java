@@ -2,17 +2,18 @@
  * @title javaSilver / Chapter02
  * @content primitive, literal, var, String, StringBuilder
  * @see 志賀澄人『徹底攻略 Java SE11 Silver 問題集 黒本[1ZO-815]』インプレス, 2019
- * @date 2020-09-12 / 1900-2600
+ * @date 2020-09-12 / 1900-2500
+ * @date
  * @correctRate ① 12.5 / 22 = 56.8％
  */
 /*
  * 〇1. Cコンパイルエラー bool?
  * 〇2. E int e = 0827 -> 8進数の8はNG
  * 〇3. C _123, D 789_, E 3_.14, F 99_F, I. 0x_52
- * 〔p43〕java7～
- * 		◆数値リテラルの「_」区切り
- * 			・リテラルの先頭と末尾は不可
- * 			・記号の前後は不可
+ *〔p43〕java7～
+ * ◆数値リテラルの「_」区切り
+ * ・リテラルの先頭と末尾は不可
+ * ・記号の前後は不可
  *
  * ｘ4. D char d =null; -> 〇C char c = 89;
  * 〔p44〕
@@ -45,7 +46,7 @@
  *
  * △9. 〇B String b = "sample";, ×存在しないC String.newInstance("sample");
  * 		 => 〇 A String a = new String("sample");
- * ×10. B Hello, worldと表示 => 〇 A hoge, world
+ * ｘ10. B Hello, worldと表示 => 〇 A hoge, world
  * 〔p51〕
  * mutable: 可変なオブジェクト。一度セットしたフィールド値を変更できる。
  * immutable: 不変なオブジェクト。 java.lang.String, java.lang.File
@@ -54,13 +55,13 @@
  *
  * 〇11. F 実行時に例外。charAt(5)にあたる文字がない。
  * 〇12. E -1
- * ×13. B => D
- * ×14. A baa => C
+ * ｘ13. B => D
+ * ｘ14. A baa => C
  * 〇15. F 実行時に例外。str.length()== 5なので、charAt(5)となる。
  * 〇16. A true
- * ×17. D "Hello,".plus("Java!") => A
+ * ｘ17. D "Hello,".plus("Java!") => A
  * 〇18. C 303040
- * ×19. A null => B
+ * ｘ19. A null => B
  * 〇20. D 21?
  * 〇21. D eaba?
  * 〇22. A 1
