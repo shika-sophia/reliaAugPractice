@@ -8,9 +8,11 @@
  *
  * ◆package ～.corps
  * @super AbstractCorps  // corps: 軍団
- * @interface Betrayable // betrayal: 裏切り,利敵行為
+ * @interface Ratable // betrayal: 利敵行為 -> rat:(俗語)裏切り者
+ *
  * @class OdaCorps extends AbstractCorps
- * //織田軍団 5 division(23,000) 織田10,柴田9,明智6-R(3),木下秀吉6,丹羽4
+ * //織田軍団 8 division(23,000) 織田10,柴田8,明智6(8)-R(3),木下秀吉6,池田3,佐久間2-R(4),
+ *                               (予備)丹羽5,安藤4
  *
  * @class TokugawaCorps extends AbstractCorps
  * //徳川軍団 3 division(6,000) 徳川7-R(1),本多10,榊原9
@@ -21,10 +23,9 @@
  * @class AzaiCorps extends AbstractCorps
  * //浅井軍団 3 division(8,000) 浅井6,磯野7,宮部4-R(8)
  *
- * @class Division //備(そなえ、師団) -> 各備はDivisionのインスタンス
- *
- * @class DivisionXxxx implements Betrayable (上記 R(n):実装クラス, n:係数)
- *
+ * @class Division implements Ratable
+ * //備(そなえ)= division:師団 -> 各備はDivisionのインスタンス
+ * //上記 R(ratable):実装クラス, ratable:謀反係数
  *
  * ◆package ～.logic
  * @class moveLogic     //移動・位置関係
