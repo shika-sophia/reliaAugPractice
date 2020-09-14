@@ -3,7 +3,8 @@
  * @content package, import, main, command-prompt
  * @see 志賀澄人『徹底攻略 Java SE11 Silver 問題集[1ZO-815]』(黒本),インプレス, 2019
  * @date 2020-09-12 / 1730-1800
- * @correctRate ②回目 8 / 8 = 100％
+ * @correctRate ①回目 6.5 / 8 = 81.2％
+ * @correctRate ②回目  8  / 8 = 100％
  */
 /*
  * 〇1. A 名前空間, Cアクセス制御, Dクラス分類
