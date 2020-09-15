@@ -40,22 +40,22 @@
 
 ■【クラス設計】
 ◆[Control, View] package book2General // 以下「～」と略す
-@execute class: BattleGame.java / main()
-
+・@execute class: BattleGame.java / main()
+・ReadMe: 要件定義, クラス設計, 歴史背景など 〔= This File〕
 
 ◆[DataBase] package ～.corps
 @super AbstractCorps  // corps: 軍団
-@super Division       // division:師団 -> 戦国風に言うと「備(そなえ)」
+@super Division(後述) // division: 師団 -> 戦国風に言うと「備(そなえ)」
 @interface Eventable
     //(オプション) まずは普通の軍団編成と戦闘計算ができてから考える。
     //イベント発生する特殊クラスに実装 [榊原,景健,(←まずは２つ。他候補は 丹羽, 宮部)]
 
-@class OdaCorps extends AbstractCorps
+@class OdaCorps extends AbstractCorps / 下記の数字は設計段階での各将戦闘力
     //織田軍団 9 division(23,000) / ◎織田10, 〇柴田8, 明智8, 木下秀吉6, 池田3, 佐久間2,
-                                   (予備 〇丹羽5ev, 安藤4, 氏家5)
+                                   (丹羽支隊[援軍のみ] 〇丹羽5ev, 安藤4, 氏家5)
 
 @class TokugawaCorps extends AbstractCorps
-    //徳川軍団 4 division(6,000) / ◎徳川7, 〇本多10, 〇榊原9ev, 酒井6
+    //徳川軍団 4 division(6,000) / ◎徳川7, 〇本多10(友情出演), 〇榊原9ev, 酒井6
 
 @class AsakuraCorps extends AbstractCorps
     //朝倉軍団 5 dividion (10,000) / ◎景健2ev, 〇景紀3, 真壁7, 前波6, 景鏡4
@@ -78,7 +78,7 @@
 //  private String direction; //正面方向 (HEX移動機能のときに利用)
     private int energy;       //活性 -1000 ～ +1000
     private String condition;
-    //状態 excite(興奮),normal(通常), confuse(混乱), chaos(大混乱), escape(潰走)
+    //状態 excite(興奮), normal(通常), confuse(混乱), chaos(大混乱), escape(潰走)
 
 
 @class DivisionXxxxx extends Division implements Eventable
@@ -98,11 +98,10 @@
 
 @class eventLogic
     //(オプション) まずは普通の軍団編成と戦闘計算ができてから考える。
-    //イベント発生判定 榊原側面突撃, 朝倉潰走or撤退
+    //イベント発生判定: 榊原側面突撃, 朝倉潰走or撤退, 丹羽支隊援軍, 宮部坊ご乱心
 
 
 ◆[資料] package ～.reference
-・ReadMe: 要件定義, クラス設計, 歴史背景など 〔= This File〕
 ・images: 画像資料, 陣形図, 地図
 
 
