@@ -8,12 +8,12 @@ public class Division {
     private int general;      //侍大将の戦闘力 0～100
 
     //---- Division Parameter ----
-    private int power;        //兵力 0～5000
+    private int power;        //兵力 0～10000
     private int moral;        //士気 0～1000
     //private String direction;//正面方向 (HEX移動機能のときに利用)
-    private int energy;       //活性 -1000 ～ +1000
+    private int energy;       //活性 -999 ～ +1000
     private String condition;
-    //状態 excite(興奮),normal(通常), confuse(混乱), chaos(大混乱), escape(潰走)
+    //状態 excite(興奮), normal(通常), confuse(混乱), chaos(大混乱), escape(潰走)
 
     public Division(String belong, String name, int general, int power) {
         this.belong = belong;

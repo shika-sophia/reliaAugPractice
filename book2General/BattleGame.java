@@ -10,10 +10,21 @@
 
 package book2General;
 
+import java.util.List;
+
+import book2General.corps.AzaiCorps;
+import book2General.corps.Division;
+import book2General.corps.OdaCorps;
+
 public class BattleGame {
 
     public static void main(String[] args) {
+        //---- instance of XxxxCorps and List<Division> ----
+        OdaCorps oda = new OdaCorps();
+        List<Division> odaList = oda.corpsList();
 
+        AzaiCorps azai = new AzaiCorps();
+        List<Division> azaiList = azai.corpsList();
 
     }//main()
 

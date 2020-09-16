@@ -39,7 +39,7 @@
 
 
 ■【クラス設計】
-◆[Control, View] package book2General // 以下「～」と略す
+◆[Control] package book2General // 以下「～」と略す
 ・@execute class: BattleGame.java / main()
 ・ReadMe: 要件定義, クラス設計, 歴史背景など 〔= This File〕
 
@@ -52,7 +52,7 @@
 
 @class OdaCorps extends AbstractCorps / 下記の数字は設計段階での各将戦闘力
     //織田軍団 9 division(23,000) / ◎織田10, 〇柴田8, 明智8, 木下秀吉6, 池田3, 佐久間2,
-                                   (丹羽支隊[援軍のみ] 〇丹羽5ev, 安藤4, 氏家5)
+                                   (丹羽支隊[援軍のみ] 〇丹羽5ev, 安藤4, 氏家6)
 
 @class TokugawaCorps extends AbstractCorps
     //徳川軍団 4 division(6,000) / ◎徳川7, 〇本多10(友情出演), 〇榊原9ev, 酒井6
@@ -101,37 +101,16 @@
     //イベント発生判定: 榊原側面突撃, 朝倉潰走or撤退, 丹羽支隊援軍, 宮部坊ご乱心
 
 
+◆[Test] package ～.test //テスト用の main()、テスト結果の保存
+
+◆[View] package ～.view //表示や動きを作るクラス群
+
+
 ◆[資料] package ～.reference
-・images: 画像資料, 陣形図, 地図
+・制作日誌: 日々の進捗、変更点、考察
+・images: 歴史資料、画像資料、陣形図、地図、ネット記事
 
 
-
-■制作日誌
-◆初日 2020-09-14
-・クラス設計
-・package作成
-
-◆２日目 2020-09-15
-・設計見直し。
-    ・HEX移動方式の廃止。-> 固定陣形・固定対戦方式にする。
-    ・Ratable(寝返り)インターフェイスの廃止。
-    ・Eventableインターフェイス設置。(未記入)
-・Divisionクラス作成
-・AzaiCorpsクラスを作成 -> Divisionクラスのインスタンスを格納するListを作成。
-・それに合わせて AbstractCorpsを修正。
-・「ReadMe.txt」を作成。「BattleGame.java」の java_docsを分離して ReadMeへ転記。
-
-・【考察】
-super, 抽象クラスをあまりうまく使えていない。
-具体的な子クラスに合わせて抽象クラスのほうを書き換えているし、あまり役に立っていない。
-フィールドもインスタンスするからsuperより子クラスに置いておいたほうが使いやすいし・・。
-
-オプションにしたイベント実装DivisionXxxxとなったら、親のDivisionからフィールド引き継いで
-継承の意味は出てくると思う。てか、オプションしないと要件定義を満たせないから、ここまではやろう。
-
-でも２日目で、だいぶ概要ができてきた。
-当初は HEX(六角形のマス)の移動方式を考えていたけど、
-戦闘には正面方向や包囲・隣接状況がとても影響するので大事な要素なのだが、
-これは いずれやることにして、まずは戦闘計算ＡＩを作ってみよう。
+（■制作日誌を [package ～.reference]へ移転）
 
 

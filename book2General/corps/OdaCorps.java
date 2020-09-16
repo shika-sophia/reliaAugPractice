@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AzaiCorps extends AbstractCorps {
-    private final String belong = "浅井勢    ";  //所属軍団
-    private final int soldierQuality = 50; //兵質 0～100
+public class OdaCorps extends AbstractCorps {
+    private final String belong = "織田勢    ";  //所属軍団
+    private final int soldierQuality = 40; //兵質 0～100
     private int powerTotal;     //総兵力
     private int victory;        //勝勢 -100 ～ +100
     private int divisionNum;    //Division数
 
-    public AzaiCorps() {
-        this.powerTotal = 8000;
+    public OdaCorps() {
+        this.powerTotal = 23000;
         this.victory = 0;
-        this.divisionNum = 4;
+        this.divisionNum = 6;    // + 援軍 3
     }
 
     @Override
     public List<Division> corpsList() {
         //---- new corpsList ----
         //各Divisionをまとめて保持するための軍団リスト
-        List<Division> azaiCorpsList = new ArrayList<>();
+        List<Division> odaCorpsList = new ArrayList<>();
 
         //---- call generalList in under method ----
         //下記メソッドを呼んで、各将のデータを読み込み
@@ -30,7 +30,7 @@ public class AzaiCorps extends AbstractCorps {
         //---- instance of Division and set it to 'corpsList' ----
         //Divisionクラスのインスタンスを各将ごとに行い、軍団Listに格納
         for (List<String> list : generalList) {
-            azaiCorpsList.add(
+            odaCorpsList.add(
                 new Division(
                     list.get(0),
                     list.get(1),
@@ -40,31 +40,68 @@ public class AzaiCorps extends AbstractCorps {
             );
         }//for
 
-        return azaiCorpsList;
+        return odaCorpsList;
 
     }//corpsList()
 
     @Override
     public List<List<String>> generalList() {
         //データ(belong, name, general, power)
-        List<String> nagamasaList = new ArrayList<>(
-            Arrays.asList(belong, "◎浅井長政","68","4000"));
+        List<String> nobunagaList = new ArrayList<>(
+            Arrays.asList(belong, "◎織田信長","96","7000"));
 
-        List<String> isonoList = new ArrayList<>(
-            Arrays.asList(belong, "〇磯野員昌","75","2000"));
+        List<String> shibataList = new ArrayList<>(
+            Arrays.asList(belong, "〇柴田勝家","88","4000"));
 
-        List<String> atujiList = new ArrayList<>(
-            Arrays.asList(belong, "阿閉貞秀","54","1000"));
+        List<String> akechiList = new ArrayList<>(
+            Arrays.asList(belong, "明智光秀","82","2000"));
 
-        List<String> miyabeList = new ArrayList<>(
-            Arrays.asList(belong, "宮部継潤","42","1000"));
+        List<String> hideyoshiList = new ArrayList<>(
+            Arrays.asList(belong, "木下秀吉","65","2000"));
+
+        List<String> ikedaList = new ArrayList<>(
+                Arrays.asList(belong, "池田恒興","37","2000"));
+
+        List<String> sakumaList = new ArrayList<>(
+                Arrays.asList(belong, "佐久間信盛","28","2000"));
 
         //---- generalList / 上記Listをまとめて１つのListにして return ----
         List<List<String>> generalList = new ArrayList<>(
-            Arrays.asList(nagamasaList, isonoList, atujiList, miyabeList));
+            Arrays.asList(
+                nobunagaList,
+                shibataList,
+                akechiList,
+                hideyoshiList,
+                ikedaList,
+                sakumaList
+            )
+        );
 
         return generalList;
+
     }//generalList()
+
+
+    //---- 丹羽支隊 [援軍イベント用] ----
+    public List<List<String>> subGeneralList() {
+        //データ(belong, name, general, power)
+        List<String> niwaList = new ArrayList<>(
+            Arrays.asList(belong, "〇丹羽長秀","56","2000"));
+
+        List<String> andoList = new ArrayList<>(
+            Arrays.asList(belong, "安藤守就","42","1000"));
+
+        List<String> bokuzenList = new ArrayList<>(
+            Arrays.asList(belong, "氏家直元","66","1000"));
+
+      //---- generalList / 上記Listをまとめて１つのListにして return ----
+        List<List<String>> subGeneralList = new ArrayList<>(
+            Arrays.asList(niwaList, andoList, bokuzenList));
+
+        return subGeneralList;
+
+    }//subGeneralList()
+
 
     //====== getter, setter =======
     public int getPowerTotal() {
