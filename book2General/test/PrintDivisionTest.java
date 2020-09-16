@@ -25,7 +25,7 @@ public class PrintDivisionTest {
         AzaiCorps azai = new AzaiCorps();
         List<Division> azaiList = azai.corpsList();
 
-      //---- Test (宮部備の兵力 -24 士気 -124)×10回 ----
+      //---- Test (宮部備の兵力 -24 士気 -158)×10回 ----
         Division miyabe = azaiList.get(3);
         for (int i = 0; i < 10; i++) {
             miyabe.setPower(miyabe.getPower() - 24);
@@ -106,7 +106,7 @@ for(Division division : azaiList ) {
 兵  力: 1000
 士  気: 1000
 ----------------
-//---- Test 宮部備の兵力 -24 士気 -124 ----
+//---- Test 宮部備の兵力 -24 士気 -158 ----
 勢  力: 浅井勢
 侍大将: 宮部継潤
 戦闘力:   42
