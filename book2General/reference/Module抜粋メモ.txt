@@ -1,0 +1,50 @@
+■Moduleの抜粋メモ
+◇山田祥寛『独習Java 新版』翔泳社, 2019 / p559～575
+    モジュール Module: [Java9～] packageの上位概念
+        ・package群, 関連リソース, 自身のモジュール定義ファイルから構成
+        ・標準ライブラリは [java.baseモジュール]として暗黙的にロードされる。
+
+    アプリケーション モジュール Application Module:
+        自己定義した module-info.javaを持つモジュールのこと
+
+    プラットフォーム モジュール Platform Module
+        標準ライブラリを構成するモジュールのこと
+
+module selflearn {         //モジュール宣言。defaultで{}内は空文
+    requiers java.net.http;//requires: 必要なpackageをインポート
+}
+
+上記の requires宣言なしで、自分以外のモジュールを参照しようとすると
+「The type java.net.http.HttpRequest is not accessible」とコンパイルエラー
+[java.net.～.H～]の部分は記述しているクラスで importしようとしたクラス名。
+
+
+ ＃java.baseモジュールの主なpackage
+ ・java.lang
+ ・java.lang.annotation
+ ・java.lang.reflect
+ ・java.io
+ ・java.nio
+ ・java.nio.file
+ ・java.net
+ ・java.text
+ ・java.time
+ ・java.time.format
+ ・java.util
+ ・java.util.concurrent
+ ・java.util.concurrent.atomic
+ ・java.util.concurrent.locks
+ ・java.util.regex
+
+ ＃java.se: 標準ライブラリ全体を定義したモジュール
+
+
+＊Moduleの開き方 [Eclipse]
+javaファイルを選択 => 左クリック => ビルドパス => ビルドパスの構成
+=> タブの一番右 => モジュールの依存関係
+
+なんか Eclipseは最初から たくさん入っていた。上記の[java.se.*]かも
+[モジュールの追加]というボタンもあったので、追加したいときはここから
+
+
+
