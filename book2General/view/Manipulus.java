@@ -1,5 +1,5 @@
 /**
- * @ view / Manipulus
+ * @title book2General / view / Manipulus
  * @content division.powerの規模に応じて■■■マークの数を変えるクラス
  *      => divisionの規模を視覚的に表し、部隊らしさを出す。
  *      =>画像を使う方法もあるが、レトロな昭和ゲーム風にこれで行こう。
