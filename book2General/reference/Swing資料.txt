@@ -946,6 +946,964 @@ BorderLayoutのサンプル
 ( Written by Tatsuo Ikura )
 
 
+◆テキストフィールドの作成と初期値や列数(幅)の設定
+https://www.javadrive.jp/tutorial/jtextfield/index1.html
+
+テキストフィールドを作成するには JTextField クラスを使用します。ここでは JTextField クラスの定義やコンストラクトについて確認します。またテキストフィールドに初期値として値を設定する方法やテキストフィールドの列数(幅)を設定する方法も解説します。
+
+目次
+＊JTextFieldクラスの定義
+＊JTextFieldクラスのコンストラクタ
+＊テキストフィールドの列数を設定する
+＊テキストフィールドに初期値を設定する
+
+
+＊JTextFieldクラスの定義
+JTextField クラスは次のように定義されています。
+
+java.lang.Object
+  java.awt.Component
+    java.awt.Container
+      javax.swing.JComponent
+        javax.swing.text.JTextComponent
+          javax.swing.JTextField
+
+public class JLabel
+    extends JComponent
+    implements SwingConstants, Accessible
+
+
+
+テキストフィールドはコンポーネントの親クラスである JComponent クラスのサブクラスとなっています。
+またテキストを扱うクラス全般の親クラスである JTextComponent クラスのサブクラスでもあります。
+
+
+＊JTextFieldクラスのコンストラクタ
+JTextField クラスをを利用するにはコンストラクタを使って JTextField クラスのオブジェクトを作成します。
+次のようなコンストラクタが用意されています。
+
+・JTextField()
+新しいTextFieldを構築します。
+
+・JTextField(int columns)
+指定された列数で新規の空のTextFieldを構築します。
+
+・JTextField(String text)
+指定されたテキストで初期化された新しいTextFieldを構築します。
+
+・JTextField(String text, int columns)
+指定されたテキストおよび列で初期化される新規TextFieldを構築します。
+
+・JTextField(Document doc, String text, int columns)
+指定されたテキスト・ストレージ・モデルと列数を使用する新規のJTextFieldを構築します。
+
+
+テキストフィールドに初期値を設定するかどうか、
+またテキストフィールドの列数を設定するかどうかでコンストラクタを選択してください。
+
+次のコンストラクタでは初期値が null で列数が 0 のテキストフィールドを作成します。
+
+public JTextField()
+
+新しいTextFieldを構築します。
+デフォルト・モデルが作成され、初期文字列はnullで、列数が0に設定されます。
+
+実際の使い方は次のようになります。
+
+JTextField text = new JTextField();
+列が 0 では利用者がテキストを入力できないのでメソッドを使って列数を設定してから使用します。
+
+＊テキストフィールドの列数を設定する
+テキストフィールドを列数を指定して作成するには次のコンストラクタを使用します。
+
+public JTextField(int columns)
+
+指定された列数で新規の空のTextFieldを構築します。
+デフォルト・モデルが作成され、初期文字列はnullに設定されます。
+
+パラメータ:
+columns - 適切な幅の計算に使用する列数。
+列数を0に設定すると、適切な幅はコンポーネントの実装から自然に得られる値になる
+
+引数にはテキストフィールドの見た目のサイズを決定するための列数を指定します。
+
+テキストフィールドの列数とは文字数と考えてください。
+例えば 10 と指定すれば 10文字分の文字が表示できるだけの幅となります。
+ただし 文字はそれぞれ幅が違うので、どんな文字でも 10 文字ぴったりとなるわけではありません。
+またあくまで見た目のサイズなので入力できる文字数とは関係がありません。
+フォントの設定によっても実際のサイズは変わってくるので、
+厳密にピクセル単位でサイズを指定するには別のページで解説する setPreferredSize メソッドを使います。
+
+実際の使い方は次のようになります。
+
+JTextField text = new JTextField(10);
+またテキストフィールドを作成したあとで、列数を設定したり再設定したりすることができます。
+テキストフィールドの列数を設定するには JTextField クラスで用意されている setColumns メソッドを使います。
+
+public void setColumns(int columns)
+
+このTextFieldの列数を設定し、配置を無効にします。
+
+パラメータ:
+columns:  列数 >= 0
+
+例外:
+IllegalArgumentException - columnsが0より小さい場合
+
+引数にはテキストフィールドの見た目のサイズを決定するための列数を指定します。
+
+実際の使い方は次のようになります。
+
+JTextField text = new JTextField();
+text.setColumns(10);
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample1_1.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.BorderLayout;
+
+class JSample1_1 extends JFrame{
+  public static void main(String args[]){
+    JSample1_1 frame = new JSample1_1("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample1_1(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    JTextField text1 = new JTextField();
+    JTextField text2 = new JTextField(10);
+    JTextField text3 = new JTextField();
+    text3.setColumns(20);
+
+    JPanel p = new JPanel();
+    p.add(text1);
+    p.add(text2);
+    p.add(text3);
+
+    Container contentPane = getContentPane();
+    contentPane.add(p, BorderLayout.CENTER);
+  }
+}
+
+次のようにコンパイルを行います。
+
+javac JSample1_1.java
+(画像)テキストフィールドの列数を設定する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample1_1
+テキストフィールドを 3 つ追加しました。
+1 つ目は引数なしのコンストラクタで作成したテキストフィールド、
+2 つ目は列数を指定して作成したテキストフィールド、
+3 つ目は引数なしのコンストラクタで作成したあとで列数を設定したテキストフィールドです。
+
+(画像)テキストフィールドの列数を設定する(2)
+
+テキストフィールドには利用者がテキストを入力することができます。
+
+(画像)テキストフィールドの列数を設定する(3)
+
+
+＊テキストフィールドに初期値を設定する
+テキストフィールドは利用者にテキストを入力してもらうためのコンポーネントですが、
+初期値として指定した文字列を設定しておくことができます。
+テキストフィールドを初期値を指定して作成するには次のコンストラクタを使用します。
+
+public JTextField(String text)
+
+指定されたテキストで初期化された新しいTextFieldを構築します。
+デフォルト・モデルが作成され、列数は0です。
+
+パラメータ:
+text - 表示されるテキストまたはnull
+
+引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+このコンストラクタを使用した場合、テキストフィールドのサイズは引数に指定した文字列が
+ちょうど表示されるだけのサイズに設定されます。
+
+また初期値に加えて列数を合わせて指定することもできます。次のコンストラクタを使用します。
+
+public JTextField(String text, int columns)
+
+指定されたテキストおよび列で初期化される新規TextFieldを構築します。
+デフォルト・モデルが作成されます。
+
+パラメータ:
+text - 表示されるテキストまたはnull
+
+columns - 適切な幅の計算に使用する列数。
+列数を0に設定すると、適切な幅はコンポーネントの実装から自然に得られる値になる
+
+1 番目の引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+2 番目の引数にはテキストフィールドの見た目のサイズを決定するための列数を指定します。
+
+実際の使い方は次のようになります。
+
+JTextField text1 = new JTextField("Tokyo");
+JTextField text2 = new JTextField("Tokyo", 10);
+-- --
+
+テキストフィールドのオブジェクトを作成したあとで、テキストフィールドに初期値を設定することもできます。
+JTextField クラスの親クラスである JTextComponent クラスで用意されている setText メソッドを使います。
+
+public void setText(String t)
+
+このTextComponentのテキストに、指定されたテキストを設定します。
+テキストがnullまたは空の場合は、古いテキストを単に削除する効果があります。
+テキストが挿入されたときに結果として得られるキャレット位置は、キャレット・クラスの実装によって決定されます。
+テキストはバウンド・プロパティではないため、それが変更されてもPropertyChangeEvent はトリガーされません。
+テキストの変更を待機するには、DocumentListenerを使用してください。
+
+パラメータ:
+t - 設定する新しいテキスト
+
+引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+このメソッドを実行した場合、対象のテキストフィールドに列数が明示的に設定されていた場合にはサイズの変更はありませんが、
+列数が設定されていなかった場合には
+テキストフィールドのサイズは引数に指定した文字列がちょうど表示されるだけのサイズに設定されます。
+
+実際の使い方は次のようになります。
+
+JTextField text = new JTextField("Tokyo");
+text.setText?("Osaka");
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample1_2.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.BorderLayout;
+
+class JSample1_2 extends JFrame{
+  public static void main(String args[]){
+    JSample1_2 frame = new JSample1_2("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample1_2(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    JTextField text1 = new JTextField("Tokyo");
+    JTextField text2 = new JTextField("Tokyo", 15);
+    JTextField text3 = new JTextField("Tokyo", 15);
+    text3.setText("Yamanashi");
+
+    JPanel p = new JPanel();
+    p.add(text1);
+    p.add(text2);
+    p.add(text3);
+
+    Container contentPane = getContentPane();
+    contentPane.add(p, BorderLayout.CENTER);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample1_2.java
+(画像)テキストフィールドに初期値を設定する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample1_2
+テキストフィールドを 3 つ追加しました。
+1 つ目は初期値を指定したコンストラクタで作成したテキストフィールド、
+2 つ目は初期値と列数を指定して作成したテキストフィールド、
+3 つ目は初期値と引数を指定して作成したあとで初期値を別の文字列で設定しなおしたテキストフィールドです。
+
+(画像)テキストフィールドに初期値を設定する(2)
+
+テキストフィールドの初期値は利用者が自由に修正したり削除して新しい値を入力することができます。
+
+(画像)テキストフィールドに初期値を設定する(3)
+
+-- --
+
+JTextField クラスの定義やコンストラクトについて確認し、
+またテキストフィールドに初期値として値を設定する方法やテキストフィールドの列数(幅)を設定する方法も解説しました。
+
+( Written by Tatsuo Ikura )
+
+
+◆テキストエリアの作成と初期値や列数(幅)/行数の設定
+https://www.javadrive.jp/tutorial/jtextarea/index1.html
+
+テキストエリアを作成するには JTextArea クラスを使用します。
+ここでは JTextArea クラスの定義やコンストラクトについて確認します。
+またテキストエリアに初期値として値を設定する方法やテキストエリアの列数(幅)を設定する方法も解説します。
+
+目次
+＊JTextAreaクラスの定義
+＊JTextAreaクラスのコンストラクタ
+＊テキストエリアの列数と行数を設定する
+＊テキストエリアに初期値を設定する
+
+
+＊JTextAreaクラスの定義
+JTextArea クラスは次のように定義されています。
+
+java.lang.Object
+  java.awt.Component
+    java.awt.Container
+      javax.swing.JComponent
+        javax.swing.text.JTextComponent
+          javax.swing.JTextArea
+
+public class JTextArea
+    extends JTextComponent
+
+テキストエリアはコンポーネントの親クラスである JComponent クラスのサブクラスとなっています。またテキストを扱うクラス全般の親クラスである JTextComponent クラスのサブクラスでもあります。
+
+
+＊JTextAreaクラスのコンストラクタ
+JTextArea クラスをを利用するにはコンストラクタを使って JTextArea クラスのオブジェクトを作成します。
+次のようなコンストラクタが用意されています。
+
+・JTextArea()
+新しいTextAreaを構築します。
+
+・JTextArea(int rows, int columns)
+指定された行数と列数で新しい空のTextAreaを構築します。
+
+・JTextArea(String text)
+
+指定された表示テキストで新しいTextAreaを構築します。
+
+・JTextArea(String text, int rows, int columns)
+指定されたテキストと行数と列数で新しいTextAreaを構築します。
+
+・JTextArea(Document doc)
+指定されたドキュメント・モデルと、ほかの引数はすべてデフォルト(null, 0, 0)で、
+新しいJTextAreaを構築します。
+
+・JTextArea(Document doc, String text, int rows, int columns)
+指定された行数と列数、および指定されたモデルで新しいJTextAreaを構築します。
+
+テキストエリアに初期値を設定するかどうか、
+またテキストエリアの列数および行数を設定するかどうかでコンストラクタを選択してください。
+
+次のコンストラクタでは初期値が null で列数が 0 のテキストフィールドを作成します。
+
+
+・public JTextArea()
+新しいTextAreaを構築します。
+デフォルト・モデルが設定され、初期文字列はnull、行/列数は0に設定されます。
+
+実際の使い方は次のようになります。
+
+JTextArea area = new JTextArea();
+
+テキストフィールドと異なり
+テキストエリアでは入力されたテキストの量に応じて自動的に縦方向にも横方向にも拡張されるように
+デフォルトでは設定されています。
+その為、列数や行数が 0 でも入力は行えますが、
+どこにテキストエリアがあるのか分かりにくいので実際にはメソッドを使って列数や行数を設定してから使用します。
+
+テキストエリアの列数と行数を設定する
+テキストエリアを列数と行数を指定して作成するには次のコンストラクタを使用します。
+
+
+・public JTextArea(int rows, int columns)
+指定された行数と列数で新しい空のTextAreaを構築します。 デフォルト・モデルが作成され、初期文字列はnullに設定されます。
+
+パラメータ:
+rows - 行数>= 0
+columns - 列数>= 0
+
+例外:
+IllegalArgumentException - 行または列の引数が負の数の場合。
+
+1 番目の引数にはテキストエリアの高さに相当する行数を指定し、 2 番目の引数には幅に相当する列数を指定します。
+
+
+テキストエリアの列数とは文字数と考えてください。
+例えば 10 と指定すれば 10文字分の文字が表示できるだけの幅となります。
+ただし 文字はそれぞれ幅が違うので、どんな文字でも 10 文字ぴったりとなるわけではありません。
+またあくまで見た目のサイズなので入力できる文字数とは関係がありません。
+フォントの設定によっても実際のサイズは変わってくるので、
+厳密にピクセル単位でサイズを指定するには別のページで解説する setPreferredSize メソッドを使います。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea(10, 40);
+またテキストエリアを作成したあとで、列数や行数を設定したり再設定したりすることができます。
+テキストエリアの列数を設定するには JTextArea クラスで用意されている setColumns メソッドを使います。
+
+
+・public void setColumns(int columns)
+このTextAreaの列数を設定します。
+ 新しい値を設定したあとにinvalidate()を実行します。
+
+パラメータ:
+columns - 列数>= 0
+
+例外:
+IllegalArgumentException - columns 0より小さい場合
+
+引数にはテキストエリアの幅を設定するための列数を指定します。
+
+テキストエリアの行数を設定するには JTextArea クラスで用意されている setRows メソッドを使います。
+
+
+・public void setRows(int rows)
+このTextAreaの行数を設定します。
+新しい値を設定したあとにinvalidate()を呼び出します。
+
+パラメータ:
+rows - 行数>= 0
+
+例外:
+IllegalArgumentException - 行が0より小さい場合
+
+引数にはテキストエリアの高さを設定するための行数を指定します。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea();
+textarea.setColumns(40);
+textarea.setRows(10);
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample1_1.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.BorderLayout;
+
+class JSample1_1 extends JFrame{
+  public static void main(String args[]){
+    JSample1_1 frame = new JSample1_1("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample1_1(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    JTextArea textarea1 = new JTextArea(3, 20);
+    JTextArea textarea2 = new JTextArea();
+    textarea2.setColumns(40);
+    textarea2.setRows(10);
+
+    JPanel p = new JPanel();
+    p.add(textarea1);
+    p.add(textarea2);
+
+    Container contentPane = getContentPane();
+    contentPane.add(p, BorderLayout.CENTER);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample1_1.java
+(画像)テキストエリアの列数と行数を設定する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample1_1
+テキストエリアが 2 つ追加されました。それぞれ幅と高さが設定されています。
+
+(画像)テキストエリアの列数と行数を設定する(2)
+
+テキストエリアにはテキストフィールドと同じく利用者がテキストを入力することができます。またテキストエリアの場合には [Enter] キーを入力することで改行を行って複数行にわたるテキストを入力することができます。
+
+(画像)テキストエリアの列数と行数を設定する(2)
+
+
+＊テキストエリアに初期値を設定する
+テキストエリアは利用者にテキストを入力してもらうためのコンポーネントですが、
+初期値として指定した文字列を設定しておくことができます。
+テキストエリアを初期値を指定して作成するには次のコンストラクタを使用します。
+
+・public JTextArea(String text)
+指定された表示テキストで新しいTextAreaを構築します。
+デフォルト・モデルが作成され、行/列数は0に設定されます。
+
+パラメータ:
+text - 表示されるテキストまたはnull
+
+引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+このコンストラクタを使用した場合、
+テキストエリアのサイズは引数に指定した文字列がちょうど表示されるだけのサイズに設定されます。
+
+もしも複数行に渡る文字列を初期値として指定したい場合には「¥n」を改行文字として指定して下さい。
+なおご利用の環境に関係なく改行は「¥n」を使って下さい。
+
+また初期値に加えて列数と行数を指定することができます。
+次のコンストラクタを使用します。
+
+・public JTextArea(String text, int rows, int columns)
+指定されたテキストと行数と列数で新しいTextAreaを構築します。
+デフォルト・モデルが作成されます。
+
+パラメータ:
+text - 表示されるテキストまたはnull
+rows - 行数>= 0
+columns - 列数>= 0
+
+例外:
+IllegalArgumentException - 行または列の引数が負の数の場合。
+
+1 番目の引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+2 番目の引数にはテキストエリアの高さに相当する行数を指定し、
+3 番目の引数には幅に相当する列数を指定します。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea1 = new JTextArea("Hello!¥nBye!");
+JTextArea textarea2 = new JTextArea("Thank's", 20, 10);
+-- --
+
+テキストエリアのオブジェクトを作成したあとで、テキストエリアに初期値を設定することもできます。
+JTextArea クラスの親クラスである JTextComponent クラスで用意されている setText メソッドを使います。
+
+・public void setText(String t)
+このTextComponentのテキストに、指定されたテキストを設定します。
+テキストがnullまたは空の場合は、古いテキストを単に削除する効果があります。
+テキストが挿入されたときに結果として得られるキャレット位置は、
+キャレット・クラスの実装によって決定されます。
+
+テキストはバウンド・プロパティではないため、
+それが変更されてもPropertyChangeEvent はトリガーされません。
+テキストの変更を待機するには、DocumentListenerを使用してください。
+
+パラメータ:
+t - 設定する新しいテキスト
+
+引数には初期値として入力される文字列を String クラスのオブジェクトを使って指定します。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea();
+textarea.setText("Thank's");
+
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample1_2.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.BorderLayout;
+
+class JSample1_2 extends JFrame{
+  public static void main(String args[]){
+    JSample1_2 frame = new JSample1_2("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample1_2(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    JTextArea textarea1 = new JTextArea("Hello", 5, 40);
+    JTextArea textarea2 = new JTextArea();
+    textarea2.setText("My name is Tarou.\nThank you.");
+
+    JPanel p = new JPanel();
+    p.add(textarea1);
+    p.add(textarea2);
+
+    Container contentPane = getContentPane();
+    contentPane.add(p, BorderLayout.CENTER);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample1_2.java
+(画像)テキストエリアに初期値を設定する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample1_2
+テキストエリアが 2 つ追加されました。 1 つ目は列と行を指定した上で初期値を設定しています。 2 つ目は初期値だけを設定しています。
+
+(画像)テキストエリアに初期値を設定する(2)
+
+初期値だけを設定した場合はテキストエリアのサイズが初期値のテキストがちょうど表示されるサイズに拡張されます。
+
+-- --
+
+JTextArea クラスの定義やコンストラクトについて確認し、
+テキストエリアに初期値として値を設定する方法やテキストエリアの列数(幅)を設定する方法も解説しました。
+
+( Written by Tatsuo Ikura )
+
+
+◆テキストエリアへ入力済みのテキストに対する追加/挿入/置き換え
+https://www.javadrive.jp/tutorial/jtextarea/index14.html
+
+
+テキストエリアには初期値を設定する以外に入力済みのテキストに対してテキストを追加したり任意の位置に挿入したり、または既存のテキストを他のテキストで置き換えることができます。ここではテキストエリアのテキストに対する追加や挿入や置き換えを行う方法について解説します。
+
+目次
+＊テキストエリアにテキストを追加する
+＊テキストエリアの任意の位置にテキストを挿入する
+＊テキストエリアの任意の範囲のテキストを別のテキストで置き換える
+
+
+＊テキストエリアにテキストを追加する
+テキストエリアに入力済みのテキストの末尾に他のテキストを追加するには
+JTextArea クラスで定義されている append メソッドを使います。
+
+public void append(String str)
+
+指定されたテキストをドキュメントの末尾に追加します。
+モデルがnullの場合、あるいは文字列がnullか空の場合には何も行いません。
+
+パラメータ:
+str - 挿入するテキスト
+
+引数には末尾に追加する文字列を String クラスのオブジェクトを使って指定します。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea("Hello!");
+textarea.append("Bye!");
+この場合、テキストエリアに入力されているテキストは "Hello!Bye!" となります。
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。テキストエディタで次のように記述したあと、 JSample14_1.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+class JSample14_1 extends JFrame implements ActionListener{
+  JTextArea textarea;
+  JTextField text;
+
+  public static void main(String args[]){
+    JSample14_1 frame = new JSample14_1("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample14_1(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    textarea = new JTextArea();
+
+    text = new JTextField(20);
+    JButton button = new JButton("Append");
+    button.addActionListener(this);
+
+    JPanel p = new JPanel();
+    p.add(text);
+    p.add(button);
+
+    Container contentPane = getContentPane();
+    contentPane.add(textarea, BorderLayout.CENTER);
+    contentPane.add(p, BorderLayout.SOUTH);
+  }
+
+  public void actionPerformed(ActionEvent e){
+    String str = text.getText();
+    textarea.append(str);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample14_1.java
+(画像)テキストエリアにテキストを追加する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample14_1
+テキストエリアを画面中央いっぱいに追加し、画面下部にテキストフィールドとボタンを 1 つずつ追加しています。
+
+(画像)テキストエリアにテキストを追加する(2)
+
+テキストエリアにテキストを入力したあと、画面下部のテキストフィールドにテキストを入力してからボタンをクリックしてください。
+
+(画像)テキストエリアにテキストを追加する(3)
+
+(画像)テキストエリアにテキストを追加する(4)
+
+テキストエリアに入力されているテキストの末尾にテキストフィールドに入力したテキストが追加されました。
+
+
+＊テキストエリアの任意の位置にテキストを挿入する
+テキストエリアに入力済みのテキストの任意の位置に他のテキストを挿入するには JTextArea クラスで定義されている insert メソッドを使います。
+
+public void insert(String str, int pos)
+
+指定されたテキストを指定の位置に挿入します。
+モデルがnullの場合、あるいはテキストがnullまたは空の場合は何も行いません。
+
+パラメータ:
+str - 挿入するテキスト
+pos - 挿入位置>= 0
+
+例外:
+IllegalArgumentException - posがモデル内の無効な位置にある場合
+
+1 番目の引数には挿入する文字列を String クラスのオブジェクトを使って指定します。
+2 番目の引数には挿入する位置を int 型の数値で指定します。
+位置は先頭の文字の前の位置が 0 、先頭の位置と次の文字の間の位置が 1 、といった感じになります。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea("Hello!Bye!");
+textarea.insert("Thanks!", 6);
+この場合、テキストエリアに入力されているテキストは "Hello!Thanks!Bye!" となります。
+
+
+
+なおこの後のサンプルで、テキストエリアの中でキャレットが今置かれている位置を取得する方法として
+ JTextArea クラスの親クラスである JTextComponent で用意されている setCaretPosition メソッドを使っています。
+
+public int getCaretPosition()
+
+テキスト・コンポーネントのテキスト挿入キャレットの位置を返します。
+
+戻り値:
+テキスト・コンポーネントのテキスト挿入キャレットの位置(0以上)
+
+メソッドを実行すると、キャレットの位置を int 型の数値で返します。位置に関する考え方は insert? メソッドの位置の考え方と同じです。
+
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample14_2.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+class JSample14_2 extends JFrame implements ActionListener{
+  JTextArea textarea;
+  JTextField text;
+
+  public static void main(String args[]){
+    JSample14_2 frame = new JSample14_2("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample14_2(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    textarea = new JTextArea();
+
+    text = new JTextField(20);
+    JButton button = new JButton("Insert");
+    button.addActionListener(this);
+
+    JPanel p = new JPanel();
+    p.add(text);
+    p.add(button);
+
+    Container contentPane = getContentPane();
+    contentPane.add(textarea, BorderLayout.CENTER);
+    contentPane.add(p, BorderLayout.SOUTH);
+  }
+
+  public void actionPerformed(ActionEvent e){
+    String str = text.getText();
+    int pos = textarea.getCaretPosition();
+    textarea.insert(str, pos);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample14_2.java
+(画像)テキストエリアの任意の位置にテキストを挿入する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample14_2
+テキストエリアを画面中央いっぱいに追加し、画面下部にテキストフィールドとボタンを 1 つずつ追加しています。
+
+(画像)テキストエリアの任意の位置にテキストを挿入する(2)
+
+テキストエリアにテキストを入力したあと、テキストを挿入したい位置にキャレットを置いてください。
+
+(画像)テキストエリアの任意の位置にテキストを挿入する(3)
+
+その後で画面下部のテキストフィールドにテキストを入力してからボタンをクリックしてください。
+
+(画像)テキストエリアの任意の位置にテキストを挿入する(4)
+
+(画像)テキストエリアの任意の位置にテキストを挿入する(5)
+
+テキストエリアに入力されているテキストの中でキャレットがあった位置に
+テキストフィールドに入力したテキストが挿入されました。
+
+
+＊テキストエリアの任意の範囲のテキストを別のテキストで置き換える
+テキストエリアに入力済みのテキストの中で、任意の範囲のテキストを別のテキストで置き換えるには
+ JTextArea クラスで定義されている replaceRange メソッドを使います。
+
+public void replaceRange(String str, int start, int end)
+
+指定された開始位置から終了位置までのテキストを、新しい指定テキストで置き換えます。
+モデルがnullの場合は何も行いません。 新しい文字列がnullまたは空の場合は、単純にdeleteを実行します。
+
+パラメータ:
+str - 置換えに使用するテキスト
+start - 開始位置 >= 0
+end - 終了位置 >= start
+
+例外:
+IllegalArgumentException - 範囲の一部がモデル内の無効な位置にある場合
+
+
+
+1 番目の引数には置き換える文字列を String クラスのオブジェクトを使って指定します。
+2 番目の引数には置き換える位置の開始位置を int 型の数値で指定します。
+3 番目の引数には置き換える位置の終了位置を int 型の数値で指定します。
+位置は先頭の文字の前の位置が 0 、先頭の位置と次の文字の間の位置が 1 、といった感じになります。
+
+実際の使い方は次のようになります。
+
+JTextArea textarea = new JTextArea("Hello!Bye!");
+textarea.replaceRange?("ELLO", 1, 5);
+この場合、テキストエリアに入力されているテキストは "HELLO!Bye!" となります。
+
+なおこの後のサンプルで、テキストエリアの中で現在選択されている位置を取得する方法として
+JTextArea クラスの親クラスである JTextComponent で用意されている getSelectionStart メソッド
+および getSelectionEnd メソッドを使っています。
+
+public int getSelectionStart()
+
+選択したテキストの開始位置を返します。
+ドキュメントが空の場合は0、選択領域がない場合はドットの値を返します。
+
+戻り値:
+開始位置>= 0
+
+public int getSelectionEnd()
+
+選択したテキストの末尾位置を返します。 ドキュメントが空の場合は0、選択領域がない場合はドットの値を返します。
+
+戻り値:
+末尾位置>= 0
+
+それぞれのメソッドを実行すると、
+テキストエリアの中で現在選択されている位置の開始位置と終了位置をそれぞれ int 型の数値で返します。
+位置に関する考え方は replaceRange? メソッドの位置の考え方と同じです。
+
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample14_3.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+class JSample14_3 extends JFrame implements ActionListener{
+  JTextArea textarea;
+  JTextField text;
+
+  public static void main(String args[]){
+    JSample14_3 frame = new JSample14_3("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample14_3(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    textarea = new JTextArea();
+
+    text = new JTextField(20);
+    JButton button = new JButton("Replace");
+    button.addActionListener(this);
+
+    JPanel p = new JPanel();
+    p.add(text);
+    p.add(button);
+
+    Container contentPane = getContentPane();
+    contentPane.add(textarea, BorderLayout.CENTER);
+    contentPane.add(p, BorderLayout.SOUTH);
+  }
+
+  public void actionPerformed(ActionEvent e){
+    String str = text.getText();
+    int start_pos = textarea.getSelectionStart();
+    int end_pos = textarea.getSelectionEnd();
+    textarea.replaceRange(str, start_pos, end_pos);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample14_3.java
+(画像)テキストエリアの任意の範囲のテキストを別のテキストで置き換える(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample14_2
+テキストエリアを画面中央いっぱいに追加し、画面下部にテキストフィールドとボタンを 1 つずつ追加しています。
+
+(画像)テキストエリアの任意の範囲のテキストを別のテキストで置き換える(2)
+
+テキストエリアにテキストを入力したあと、テキストを置き換えたい部分をマウスまたはテキストで選択してください。
+
+(画像)テキストエリアの任意の範囲のテキストを別のテキストで置き換える(3)
+
+その後で画面下部のテキストフィールドにテキストを入力してからボタンをクリックしてください。
+
+(画像)テキストエリアの任意の範囲のテキストを別のテキストで置き換える(4)
+
+(画像)テキストエリアの任意の範囲のテキストを別のテキストで置き換える(5)
+
+テキストエリアに入力されているテキストの中で選択されていた部分が
+テキストフィールドに入力したテキストで置き換えられました。
+
+-- --
+
+テキストエリアのテキストに対する追加や挿入や置き換えを行う方法について解説しました。
+
+( Written by Tatsuo Ikura )
+
+
 ◆MouseEventからの情報取得
 https://www.javadrive.jp/applet/event/index3.html
 
