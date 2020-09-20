@@ -163,5 +163,22 @@ jspファイルを使わないと無理なような・・
   宮部 ■  ×  □ 柴田
 
 
+(休日もやらないと提出納期に間に合わないので、お許しを・・)
+◆５日目 2020-09-19 (土) 休日
+＊上記 [view.Centuria] -> 改名[view.Manipulus]
+＊Manipulusが途中だったので、それを仕上げる。
+＊引数に (int power, boolean west)を渡すメソッドに変更
+    power: 兵力 -> ■の規模を決める
+    west: 西軍か東軍か -> ■, □かで表示
+
+◆６日目 2020-09-20 (日) 休日
+＊[reference.座標指定～] -> 改名[reference.Swing資料]
+    ・以前は抜粋のみだったが、全文掲載に変更
+    ・「Swingを使ったアプリケーションとは」など基礎になる記事を追加
+    ・「◆INDEX Swingを使ってみよう」という記事一覧があったので追加
+        https://www.javadrive.jp/tutorial/
+
+＊[view.BattleGameView]を作成し、Swingを利用して実装を開始
+
 
 
