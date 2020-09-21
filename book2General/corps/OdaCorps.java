@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OdaCorps extends AbstractCorps {
-    private final String belong = "織田勢    ";  //所属軍団
+    private final String belong = "織田勢";  //所属軍団
     private final int soldierQuality = 40; //兵質 0～100
     private int powerTotal;     //総兵力
     private int victory;        //勝勢 -100 ～ +100
