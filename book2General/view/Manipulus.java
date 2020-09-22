@@ -16,19 +16,83 @@
  *      戦闘中も きれいな正方形を維持して進退し、攻勢や退却も この百人隊ごとに行った。
  *      century[英] 100年(１世紀), cent[英](セント 100分の１)の語源でもある。
  *
- *      (てか、クラス名や変数名をラテン語にするんじゃないっ。)
  */
 
 package book2General.view;
 
+import java.util.List;
+
+import book2General.corps.AzaiCorps;
+import book2General.corps.Division;
+import book2General.corps.OdaCorps;
+
 public class Manipulus {
 
-    //テスト用 main()
-    //public static void main(String[] args) {
-        //int power = 7000; // 兵力 Divisionクラスのフィールド
-        //boolean west = false;
+//    //テスト用 main()
+    public static void main(String[] args) {
+//        //==== Test only buildManipulus() ====
+//        int power = 7000; // 兵力 Divisionクラスのフィールド
+//        boolean west = false;
+//
+//        //==== Test buildDivName(), judgeWest(), buildManipulus() ====
+//        //---- instance of XxxxCorps and List<Division> ----
+        AzaiCorps azai = new AzaiCorps();
+        List<Division> azaiList = azai.corpsList();
 
-    public String buildManipulus(int power, boolean west) {
+        OdaCorps oda = new OdaCorps();
+        List<Division> odaList = oda.corpsList();
+
+        Manipulus mp = new Manipulus();
+        String miyabe = mp.buildDivName(azaiList, 3);
+        String nobunaga = mp.buildDivName(odaList, 0);
+
+        System.out.println(miyabe);
+        System.out.println(nobunaga);
+
+    }//main()
+
+    //Divisionリストとindexから、名前,兵力,士気の付いたManipulusを生成
+    public String buildDivName(List<Division> divList, int index) {
+        Division div = divList.get(index);
+
+        boolean west = judgeWest(div); //call method
+
+        //---- build Manipulus with name, power, moral ----
+        StringBuilder bld = new StringBuilder();
+        bld.append(String.format("%5s \n",div.getName()));
+        bld.append(String.format("%10d \n", div.getPower()));
+        bld.append(String.format("%10d \n",div.getMoral()));
+        bld.append(buildManipulus(div.getPower(), west)).append("\n"); //call method
+
+        return bld.toString();
+    }//buildDivName()
+
+
+    //Division情報から、西軍か東軍かの判定
+    private boolean judgeWest(Division div) {
+        boolean west = false;
+
+        switch(div.getBelong()) {
+        case "浅井勢":
+        case "朝倉勢":
+            west = true;
+            break;
+
+        case "織田勢":
+        case "徳川勢":
+            west = false;
+            break;
+
+        default:
+            throw new IllegalArgumentException();
+        }
+
+        return west;
+    }//judgeWest()
+
+
+    //Division.getPower()＝兵力から、Manipulusを生成
+    private String buildManipulus(int power, boolean west) {
         int centuria = 0; // ■■■マークの数
         int width = 0;    //陣形の横幅
         int height = 0;   //陣形の縦幅
@@ -103,12 +167,30 @@ public class Manipulus {
         //System.out.println(manipulus);
 
         return manipulus;
-    }//buildManipulus() or main()
+    }//buildManipulus()
 
 }//class
 
 /*
-//====== Test Result by main() ======
+//====== Test Result by buildDivName(), judgeWest(), buildManipulus() ======
+ 宮部継潤
+      1000
+      1000
+■
+■◆
+■
+
+
+◎織田信長
+      7000
+      1000
+  □□□□
+◇□□□□
+  □□□□
+  □□□□
+
+
+//====== Test Result by only buildManipulus() ======
 power = 1000
 centuria = 3
 ■
