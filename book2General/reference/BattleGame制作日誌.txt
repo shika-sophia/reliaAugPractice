@@ -181,4 +181,26 @@ jspファイルを使わないと無理なような・・
 ＊[view.BattleGameView]を作成し、Swingを利用して実装を開始
 
 
+◆７日目 2020-09-22 (火) 休日
+＊[view.Manipulus] Divisionリストから、名前,兵力,士気付きのManipulusを生成
+
+＊[view.BattleGameView] Divisionテキストと Manipulusを表示できるように実装
+    ・【課題】panelを複数に分ける -> なぜか panelが上書きされてしまい複数パネルを並べられない。
+    ・【課題】テキストエリアの並立配置 -> setLayout(BoxLayout(～, BoxLayout.X_AXIS));
+    ・【課題】テキストエリア内のセンタリング
+    ・いろいろ課題山積・・
+
+    ・今日時点でのViewは[view.BattleGameView2020-09-22.jpg]参照
+
+＊明日以降の 「To Do List」
+    ・シナリオ作成 Scene1 開戦, Scene5 榊原側面に迂回突撃 のみ実装
+    ・戦闘ロジックのアルゴリズム -> まずはテキストファイルで考える
+    ・上記アルゴリズムを [[logicパッケージ]]に実装
+    ・各クラスを [book2General.BattleGame.main()]からのコントロールで繋げる
+
+【考察】提出期限１週間前で焦ってきました。実装できるんかなぁ。
+  Swingが調べながらで重いんだよな。とても勉強にはなるけど・・
+  明日はSwingを少し寝かせて、シナリオと戦闘ロジックのできるとこからやっていこうか
+
+
 

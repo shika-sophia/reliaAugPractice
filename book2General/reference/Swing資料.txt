@@ -1904,6 +1904,125 @@ java JSample14_2
 ( Written by Tatsuo Ikura )
 
 
+◆パネルで使用するレイアウトマネージャーを設定する
+https://www.javadrive.jp/tutorial/jpanel/index4.html
+
+パネルで使用されるデフォルトのレイアウトマネージャーは FlowLayout ですが
+他のレイアウトマネージャーを設定することもできます。
+ここではパネルで使用するレイアウトマネージャーを設定する方法について解説します。
+
+目次
+＊レイアウトマネージャーを設定する
+
+
+＊レイアウトマネージャーを設定する
+最初にコンストラクタで使用するレイアウトマネージャーを指定する方法です。
+次のコンストラクタを使用します。
+
+public JPanel(LayoutManager layout)
+
+指定されたレイアウト・マネージャで、新しいJPanelを作成します。
+
+パラメータ:
+layout - 使用するLayoutManager
+
+引数にはレイアウトマネージャーを表す LayoutManager インターフェースを実装したクラスのオブジェクトを指定します。
+
+実際の使い方は次のようになります。
+
+JPanel panel = new JPanel(new BorderLayout());
+この場合はレイアウトマネージャーとして BorderLayout を使用するパネルのオブジェクトが作成されます。
+
+-- --
+
+次に作成済みパネルのレイアウトマネージャーを設定する方法です。
+レイアウトマネージャーを設定するには JPanel クラスの親クラスである Container クラスで定義されている
+setLayout メソッドを使います。
+
+public void setLayout(LayoutManager mgr)
+
+このコンテナのレイアウト・マネージャを設定します。
+このメソッドではレイアウトに関連する情報が変更されるため、コンポーネント階層が無効になります。
+
+パラメータ:
+mgr - 指定されたレイアウト・マネージャ
+
+引数にはレイアウトマネージャーを表す LayoutManager インターフェースを実装したクラスのオブジェクトを指定します。
+
+実際の使い方は次のようになります。
+
+JPanel panel = new JPanel();
+panel.setLayout(new BorderLayout());
+
+この場合はレイアウトマネージャーとして BorderLayout を使用するパネルのオブジェクトが作成されます。
+
+＊サンプルプログラム
+それでは簡単なサンプルプログラムを作って試してみます。
+テキストエディタで次のように記述したあと、 JSample4_1.java という名前で保存します。
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Container;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+
+class JSample4_1 extends JFrame{
+  public static void main(String args[]){
+    JSample4_1 frame = new JSample4_1("MyTitle");
+    frame.setVisible(true);
+  }
+
+  JSample4_1(String title){
+    setTitle(title);
+    setBounds(100, 100, 600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    /* Changed Frame's layout manager to FlowLayout */
+    setLayout(new FlowLayout());
+
+    JPanel panel = new JPanel();
+    panel.setPreferredSize(new Dimension(300, 200));
+
+    /* Changed Panel's layout manager to BorderLayout */
+    panel.setLayout(new BorderLayout());
+
+    JButton button1 = new JButton("NORTH");
+    JButton button2 = new JButton("WEST");
+    JButton button3 = new JButton("SOUTH");
+    JButton button4 = new JButton("EAST");
+
+    panel.add(button1, BorderLayout.NORTH);
+    panel.add(button2, BorderLayout.WEST);
+    panel.add(button3, BorderLayout.SOUTH);
+    panel.add(button4, BorderLayout.EAST);
+
+    Container contentPane = getContentPane();
+    contentPane.add(panel);
+  }
+}
+次のようにコンパイルを行います。
+
+javac JSample4_1.java
+(画像)レイアウトマネージャーを設定する(1)
+
+コンパイルが終わりましたら実行します。
+
+java JSample4_1
+パネルのレイアウトマネジャーを BorderLayout に変更したあとで、 4 つのボタンをそれぞれパネルに追加しています。
+
+(画像)レイアウトマネージャーを設定する(2)
+
+今回の例では分かりやすいようにフレームのレイアウトマネジャーを FlowLayout に変更しています。
+
+-- --
+
+パネルで使用するレイアウトマネージャーを設定する方法について解説しました。
+
+( Written by Tatsuo Ikura )
+
+
 ◆MouseEventからの情報取得
 https://www.javadrive.jp/applet/event/index3.html
 
