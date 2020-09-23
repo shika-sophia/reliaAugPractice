@@ -58,7 +58,7 @@
     //徳川軍団 4 division(6,000) / ◎徳川7, 〇本多10(友情出演), 〇榊原9ev, 酒井6
 
 @class AsakuraCorps extends AbstractCorps
-    //朝倉軍団 5 dividion (10,000) / ◎景健2ev, 〇景紀3, 真壁7, 前波6, 景鏡4
+    //朝倉軍団 5 dividion (10,000) / ◎景健2ev, 〇景紀3, 真柄7, 前波6, 景鏡4
 
 @class AzaiCorps extends AbstractCorps
     //浅井軍団 4 division(8,000) / ◎浅井6, 〇磯野7, 阿閉(あつじ)5, 宮部4ev

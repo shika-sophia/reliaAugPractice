@@ -1,36 +1,32 @@
 /*
-【浅井軍団の特徴】「浅井」は「あざい」と読む。
-長政の祖父の代に近江 六角家(佐々木家)から独立した新興の大名。
-近江半国の領地で兵数は少なく、正面の織田勢を支えるのが精一杯で、
-攻勢に出ても、独力で織田勢に勝ち切るのは無理なため、朝倉勢が徳川を蹴散らし
-正面・側面から織田勢を攻めることができれば勝機はあるかも。
-近江は京にも近く商業地でもあったので、兵質はそれほど高くない。
- * */
-
+【朝倉軍団の特徴】
+将質の高い武将がおりながら、血統信仰・門閥主義の古い室町体制のため、
+良将の石高は低く、兵士数も少ないので彼らの力量を活かしきれないであろう。
+ */
 package book2General.corps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AzaiCorps extends AbstractCorps {
-    private final String belong = "浅井勢";  //所属軍団
-    private final int soldierQuality = 50; //兵質 0～100
+public class AsakuraCorps extends AbstractCorps {
+    private final String belong = "朝倉勢";  //所属軍団
+    private final int soldierQuality = 60; //兵質 0～100
     private int powerTotal;     //総兵力
     private int victory;        //勝勢 -100 ～ +100
     private int divisionNum;    //Division数
 
-    public AzaiCorps() {
-        this.powerTotal = 8000;
+    public AsakuraCorps() {
+        this.powerTotal = 10000;
         this.victory = 0;
-        this.divisionNum = 4;
+        this.divisionNum = 5;
     }
 
     @Override
     public List<Division> corpsList() {
         //---- new corpsList ----
         //各Divisionをまとめて保持するための軍団リスト
-        List<Division> azaiCorpsList = new ArrayList<>();
+        List<Division> asakuraCorpsList = new ArrayList<>();
 
         //---- call generalList in under method ----
         //下記メソッドを呼んで、各将のデータを読み込み
@@ -39,7 +35,7 @@ public class AzaiCorps extends AbstractCorps {
         //---- instance of Division and set it to 'corpsList' ----
         //Divisionクラスのインスタンスを各将ごとに行い、軍団Listに格納
         for (List<String> list : generalList) {
-            azaiCorpsList.add(
+            asakuraCorpsList.add(
                 new Division(
                     list.get(0),
                     list.get(1),
@@ -49,31 +45,44 @@ public class AzaiCorps extends AbstractCorps {
             );
         }//for
 
-        return azaiCorpsList;
+        return asakuraCorpsList;
 
     }//corpsList()
+
 
     @Override
     public List<List<String>> generalList() {
         //データ(belong, name, general, power)
-        List<String> nagamasaList = new ArrayList<>(
-            Arrays.asList(belong, "◎浅井長政","68","4000"));
+        List<String> kagetakeList = new ArrayList<>(
+            Arrays.asList(belong, "◎朝倉景建","23","4000"));
 
-        List<String> isonoList = new ArrayList<>(
-            Arrays.asList(belong, "〇磯野員昌","75","2000"));
+        List<String> kagenoriList = new ArrayList<>(
+            Arrays.asList(belong, "〇朝倉景紀","31","2000"));
 
-        List<String> atujiList = new ArrayList<>(
-            Arrays.asList(belong, "阿閉貞秀","54","1000"));
+        List<String> magaraList = new ArrayList<>(
+            Arrays.asList(belong, "真柄直隆","71","1000"));
 
-        List<String> miyabeList = new ArrayList<>(
-            Arrays.asList(belong, "宮部継潤","42","1000"));
+        List<String> maenamiList = new ArrayList<>(
+            Arrays.asList(belong, "前波吉継","64","1000"));
+
+        List<String> kageakiraList = new ArrayList<>(
+            Arrays.asList(belong, "朝倉景鏡","42","2000"));
+
 
         //---- generalList / 上記Listをまとめて１つのListにして return ----
         List<List<String>> generalList = new ArrayList<>(
-            Arrays.asList(nagamasaList, isonoList, atujiList, miyabeList));
+            Arrays.asList(
+                kagetakeList,
+                kagenoriList,
+                magaraList,
+                maenamiList,
+                kageakiraList
+            )
+        );
 
         return generalList;
     }//generalList()
+
 
     //====== getter, setter =======
     public int getPowerTotal() {
