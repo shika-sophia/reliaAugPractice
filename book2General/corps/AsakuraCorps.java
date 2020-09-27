@@ -54,7 +54,7 @@ public class AsakuraCorps extends AbstractCorps {
     public List<List<String>> generalList() {
         //データ(belong, name, general, power)
         List<String> kagetakeList = new ArrayList<>(
-            Arrays.asList(belong, "◎朝倉景建","23","4000"));
+            Arrays.asList(belong, "〇朝倉景建","23","4000"));
 
         List<String> kagenoriList = new ArrayList<>(
             Arrays.asList(belong, "〇朝倉景紀","31","2000"));
