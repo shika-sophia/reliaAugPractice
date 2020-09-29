@@ -7,5 +7,5 @@ Text: 志賀澄人『徹底攻略 Java SE11 Silver 問題集[1Z0-815]』(黒本)
 
 book2General:
 自主制作『浅井長政の野望』～姉川の戦い～
-
+(いずれ新規Repositoryになるかも)
 
