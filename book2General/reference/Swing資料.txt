@@ -274,6 +274,137 @@ Swing を使って作成するアプリケーションとはどのようなも�
 ( Written by Tatsuo Ikura )
 
 
+◆SpringLayoutクラス
+＊制約を使って位置を設定する
+https://www.javadrive.jp/tutorial/springlayout/index3.html
+
+追加されるコンポーネントに対して制約を設定するにはSpringLayoutクラスで用意されている
+「putConstraint」メソッドを使います。
+
+putConstraint
+public void putConstraint(String e1,
+                          Component c1,
+                          int pad,
+                          String e2,
+                          Component c2)
+
+コンポーネント c1 のエッジ e1 をコンポーネント c2 のエッジ e2 にリンクし
+ます。エッジ間の距離は固定です。この制約により、後続のすべてのレイアウト
+オペレーションで、次の代入が発生します。
+
+  value(e1, c1) = value(e2, c2) + pad
+
+パラメータ:
+  e1 - 依存するエッジ
+  c1 - 依存するコンポーネント
+  pad - 依存する側とされる側の間の固定距離
+  e2 - 依存されるエッジ
+  c2 - 依存されるコンポーネント
+使い方としては次のようになります。
+
+まず制約を設定したいコンポーネントが「c1」です。
+このコンポーネントのどの部分に対して設定をするのかが「e1」となります。
+どの部分というのはコンポーネントの上辺/下辺/左辺/右辺のいずれかです。
+
+次に基準となるコンポーネントが「c2」です。
+このコンポーネントのどの部分を基準とするのかが「e2」となります。
+どの部分というのはコンポーネントの上辺/下辺/左辺/右辺のいずれかです。
+
+そして基準となるコンポーネントの部分から設定したいコンポーネントの部分までの距離を設定するのが「pad」です。
+右又は下方向への距離の場合はプラスの値、左又は上方向への距離の場合はマイナスの値となります。
+
+例えば「コンポーネントの上辺を、基準となるパネルの上辺から10ピクセルの位置に設定する」と言ったように制約を設定します。
+
+制約を設定したいコンポーネントの位置を設定する場合にコンテナを基準コンポーネントとするならば、
+コンポーネントの上辺がコンテナの上辺からどれくらい離れているかと、
+コンポーネントの左辺がコンテナの左辺からどれくらい離れているのかを設定すれば位置を決定することが出来ます。
+
+部分を指定するために次の値が用意されています。
+
+値                  部分
+SpringLayout.NORTH  上端
+SpringLayout.SOUTH  下端
+SpringLayout.WEST   左端
+SpringLayout.EAST   右端
+基準となるコンポーネントはコンテナだけではなく他のコンポーネントを基準にしても構いません。
+例えばコンポーネント1の右端から10ピクセル離れた位置にコンポーネント2の左端を設定するという制約を設定することも出来ます。
+
+実際の使い方は次のようになります。
+
+SpringLayout layout = new SpringLayout();
+JPanel p = new JPanel();
+p.setLayout(layout);
+
+JButton button1 = new JButton("button1");
+JButton button2 = new JButton("button2");
+
+layout.putConstraint(SpringLayout.NORTH, button1, 10, SpringLayout.NORTH, p);
+layout.putConstraint(SpringLayout.WEST, button1, 10, SpringLayout.WEST, p);
+
+layout.putConstraint(SpringLayout.NORTH, button2, 10, SpringLayout.NORTH, p);
+layout.putConstraint(SpringLayout.WEST, button2, 5, SpringLayout.EAST, button1);
+
+p.add(button1);
+サンプルプログラム
+では簡単なサンプルを作成して試してみます。
+
+SpringLayoutTest2.java
+
+import javax.swing.*;
+import java.awt.Font;
+import java.awt.BorderLayout;
+
+public class SpringLayoutTest2 extends JFrame{
+
+  public static void main(String[] args){
+    SpringLayoutTest2 frame = new SpringLayoutTest2();
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setBounds(10, 10, 300, 200);
+    frame.setTitle("タイトル");
+    frame.setVisible(true);
+  }
+
+  SpringLayoutTest2(){
+    SpringLayout layout = new SpringLayout();
+    JPanel p = new JPanel();
+    p.setLayout(layout);
+
+    JButton button1 = new JButton("Google");
+    JButton button2 = new JButton("Yahoo!");
+    button2.setFont(new Font("Arial", Font.PLAIN, 30));
+    JButton button3 = new JButton("MSN");
+
+    layout.putConstraint(SpringLayout.NORTH, button1, 50, SpringLayout.NORTH, p);
+    layout.putConstraint(SpringLayout.WEST, button1, 10, SpringLayout.WEST, p);
+
+    layout.putConstraint(SpringLayout.NORTH, button2, 50, SpringLayout.NORTH, p);
+    layout.putConstraint(SpringLayout.WEST, button2, 10, SpringLayout.EAST, button1);
+
+    layout.putConstraint(SpringLayout.NORTH, button3, 10, SpringLayout.SOUTH, button2);
+    layout.putConstraint(SpringLayout.WEST, button3, 0, SpringLayout.WEST, button2);
+
+    p.add(button1);
+    p.add(button2);
+    p.add(button3);
+
+    getContentPane().add(p, BorderLayout.CENTER);
+  }
+}
+
+上記をコンパイルした後で実行すると次のように表示されます。
+
+(画像)SpringLayoutで制約を使って位置を設定する
+
+今回はまず「Google」ボタンをコンテナをベースに位置を設定します。
+次に「Yahoo!」ボタンの垂直方向の位置は「Google」ボタンと同じくコンテナからの距離で指定し
+水平方向の位置は「Google」ボタンの右端からの距離で設定しています。
+最後に「MSN」ボタンの水平位置は「Yahoo!」ボタンからの距離を「0」で設定し、
+垂直方向の位置は「Yahoo!」ボタンの下端からの距離で設定しています。
+
+( Written by Tatsuo Ikura )
+
+
 ◆パネルのサイズの設定と枠線の表示
 https://www.javadrive.jp/tutorial/jpanel/index5.html
 パネルのサイズは任意のサイズに設定することができます。
