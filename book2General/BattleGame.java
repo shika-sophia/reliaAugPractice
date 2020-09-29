@@ -12,6 +12,62 @@ package book2General;
 
 import java.util.List;
 
+import book2General.corpsRevision.DataFileReader;
+import book2General.corpsRevision.Division;
+import book2General.logic.Scenario;
+import book2General.view.BattleGameView;
+
+public class BattleGame {
+
+    public static void main(String[] args) {
+        //Databaseファイルの読み込み、Corps,Divisionの各インスタンス生成
+        DataFileReader data = new DataFileReader();
+        data.dataFileReader();
+
+        //[view.BattleGameView]インスタンス生成、新ウィンドウの作成
+        BattleGameView view = new BattleGameView();
+        view.standFrame();
+
+        //while() { //←シナリオ終了条件(あとで記述)
+            //シナリオロード、登場武将決定
+            //【註】Scenario()のインスタンスはカウントされているので、ここだけで行う。
+            Scenario scenario = new Scenario();
+            scenario.takeScene(data);
+
+            //Scenarioクラスのフィールド読み込み
+            int sceneNum = scenario.getSceneNum();
+            String sceneStr = scenario.getSceneStr();
+            List<Division> sceneDivList = scenario.getSceneDivList();
+
+            //[view.BattleGameView]フィールドに代入
+            view.setSceneNum(sceneNum);
+            view.setSceneStr(sceneStr);
+            view.setSceneDivList(sceneDivList);
+
+            //パネルの生成
+            view.standPanel();
+
+        //}//while
+    }//main()
+
+}//class
+
+/*
+//---- Test print ----
+System.out.println("sceneNum: " + sceneNum);
+System.out.println("sceneStr: " + sceneStr);
+System.out.println("sceneGeneral: " + sceneGeneral);
+
+//---- Result Test ----
+sceneNum: 1
+sceneStr: 開戦 / 浅井・朝倉勢の渡河攻勢
+sceneGeneral: [宮部継潤, 阿閉貞秀, 佐久間信盛]
+ */
+
+/*
+//###### 旧版 main() when [corpsパッケージ] ######
+import java.util.List;
+
 import book2General.corps.AsakuraCorps;
 import book2General.corps.AzaiCorps;
 import book2General.corps.Division;
@@ -50,6 +106,9 @@ public class BattleGame {
 
     }//main()
 
+    public BattleGame() {
+
+    }
 
     public BattleGame(
         List<Division> azaiList,
@@ -104,4 +163,4 @@ public class BattleGame {
         this.tokugawaList = tokugawaList;
     }
 
-}//class
+ */
