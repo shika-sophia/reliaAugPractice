@@ -20,40 +20,12 @@
 
 package book2General.view;
 
-import java.util.List;
-
-import book2General.corps.AzaiCorps;
-import book2General.corps.Division;
-import book2General.corps.OdaCorps;
+import book2General.corpsRevision.Division;
 
 public class Manipulus {
 
-//    //テスト用 main()
-    public static void main(String[] args) {
-//        //==== Test only buildManipulus() ====
-//        int power = 7000; // 兵力 Divisionクラスのフィールド
-//        boolean west = false;
-//
-//        //==== Test buildDivName(), judgeWest(), buildManipulus() ====
-//        //---- instance of XxxxCorps and List<Division> ----
-        AzaiCorps azai = new AzaiCorps();
-        List<Division> azaiList = azai.corpsList();
-
-        OdaCorps oda = new OdaCorps();
-        List<Division> odaList = oda.corpsList();
-
-        Manipulus mp = new Manipulus();
-        String miyabe = mp.buildDivName(azaiList, 3);
-        String nobunaga = mp.buildDivName(odaList, 0);
-
-        System.out.println(miyabe);
-        System.out.println(nobunaga);
-
-    }//main()
-
     //Divisionリストとindexから、名前,兵力,士気の付いたManipulusを生成
-    public String buildDivName(List<Division> divList, int index) {
-        Division div = divList.get(index);
+    public String buildNamedManipulus(Division div) {
 
         boolean west = judgeWest(div); //call method
 
@@ -65,11 +37,11 @@ public class Manipulus {
         bld.append(buildManipulus(div.getPower(), west)).append("\n"); //call method
 
         return bld.toString();
-    }//buildDivName()
+    }//buildNamedManipulus()
 
 
     //Division情報から、西軍か東軍かの判定
-    private boolean judgeWest(Division div) {
+    public boolean judgeWest(Division div) {
         boolean west = false;
 
         switch(div.getBelong()) {
@@ -222,3 +194,28 @@ centuria = 16
   □□□□
   □□□□
  */
+/*
+//テスト用 main()
+public static void main(String[] args) {
+    //==== Test only buildManipulus() ====
+    int power = 7000; // 兵力 Divisionクラスのフィールド
+    boolean west = false;
+
+    //==== Test buildDivName(), judgeWest(), buildManipulus() ====
+    //---- instance of XxxxCorps and List<Division> ----
+    AzaiCorps azai = new AzaiCorps();
+    List<Division> azaiList = azai.corpsList();
+
+    OdaCorps oda = new OdaCorps();
+    List<Division> odaList = oda.corpsList();
+
+    Manipulus mp = new Manipulus();
+    String miyabe = mp.buildNamedManipulus(azaiList, 3);
+    String nobunaga = mp.buildNamedManipulus(odaList, 0);
+
+    System.out.println(miyabe);
+    System.out.println(nobunaga);
+
+}//main()
+
+*/

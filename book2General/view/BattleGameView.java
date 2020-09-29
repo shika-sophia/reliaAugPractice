@@ -2,14 +2,161 @@
  * @title Book2General / view / BattleGameView
  * @class アプリのメイン画面
  * @class //Swingを利用したViewの表示テストのようなクラス
+ * @class [BattleGame.main()]からシナリオ引数を受け取って表示するクラスに改変
  * @import java.awt, java.swing
  * @see reference.Swing資料
+ * @see especially「SpringLayout」
+ *      -> https://www.javadrive.jp/tutorial/springlayout/index3.html
  *
  * @author Oshika
- * @date 2020-09-19 ～ 2020-09-22
-
+ * @date 旧版 2020-09-19 ～ 2020-09-22
+ * @date 2020-09-29
  */
 
+package book2General.view;
+
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
+
+import book2General.corpsRevision.Division;
+
+public class BattleGameView extends JFrame {
+    private int sceneNum;
+    private String sceneStr;
+    private List<String> sceneGeneral;
+    private List<Division> sceneDivList;
+    private int phaseNum;
+    private String phaseStr;
+
+    public BattleGameView(){
+
+    }
+
+    public BattleGameView(int sceneNum, String sceneStr, List<String> sceneGeneral){
+        this.sceneNum = sceneNum;
+        this.sceneStr = sceneStr;
+        this.sceneGeneral = sceneGeneral;
+    }
+
+    public static void standFrame() {
+        //新ウィンドウの作成
+        BattleGameView window = new BattleGameView();
+        window.setBounds(10, 10, 1200, 700);//(開始x,開始y,横幅width,縦高height)
+        window.setTitle("BattleGameView");  //ウィンドウのタイトル
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+    }//standFrame()
+
+    public void standPanel() {
+        //ウインド枠の内側の表示範囲 panelを定義
+        //SpringLayout 相対配置の全指定レイアウト -> 上記 URLを参照
+        JPanel panel = new JPanel();
+        SpringLayout layout = new SpringLayout();
+        panel.setLayout(layout);
+        panel.setPreferredSize(new Dimension(1000, 600));
+
+        //==== textareaの生成 ====
+        //---- textarea1 / NORTH枠: シーン・フェイズ表示 ----
+        phaseNum = 1;//仮置き -> 本来は戦闘計算回数に応じて増加
+        phaseStr = "浅井・朝倉勢の攻勢";//仮置き
+        JTextArea textarea1 = new JTextArea(
+                String.format("\nSCENE %d: %s\nFHASE %d :%s %3$d回目\n",
+                sceneNum, sceneStr, phaseNum, phaseStr));
+        textarea1.setFont(new Font("ＭＳ 明朝", Font.ITALIC, 22));
+
+        layout.putConstraint(SpringLayout.NORTH, textarea1, 10, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.WEST, textarea1, 490, SpringLayout.WEST, panel);
+
+        panel.add(textarea1);
+
+        //---- textarea2～n ----
+        //textDivList: Division情報の表示用
+        //manipulusList: Munipulus情報の表示用
+        List<JTextArea> textDivList = new ArrayList<>();
+        List<JTextArea> manipulusList = new ArrayList<>();
+
+        //登場武将ごとに JTextAreaを作成
+        for(Division div : sceneDivList) {
+            String text = textDivision(div);
+            textDivList.add(new JTextArea(text));
+
+            String manipulus = figueDivision(div);
+        }//for
+
+
+
+        //panelの実装
+        Container contentPane = getContentPane();
+        contentPane.add(panel);
+
+    }//standPanel
+
+
+    private String textDivision(Division div) {
+        return String.format(
+            "勢  力: %s\n侍大将: %s\n戦闘力: %4d\n兵  力: %4d\n士  気: %4d\n",
+            div.getBelong(),
+            div.getName(),
+            div.getGeneral(),
+            div.getPower(),
+            div.getMoral()
+        );
+    }//textDivision()
+
+
+    private String figueDivision(Division div) {
+        Manipulus mp = new Manipulus();
+        String manipulus = mp.buildNamedManipulus(div);
+        return manipulus;
+    }//figueDivision()
+
+
+    //====== getter, setter ======
+    public int getSceneNum() {
+        return sceneNum;
+    }
+
+    public void setSceneNum(int sceneNum) {
+        this.sceneNum = sceneNum;
+    }
+
+    public String getSceneStr() {
+        return sceneStr;
+    }
+
+    public void setSceneStr(String sceneStr) {
+        this.sceneStr = sceneStr;
+    }
+
+    public List<String> getSceneGeneral() {
+        return sceneGeneral;
+    }
+
+    public void setSceneGeneral(List<String> sceneGeneral) {
+        this.sceneGeneral = sceneGeneral;
+    }
+
+    public List<Division> getSceneDivList() {
+        return sceneDivList;
+    }
+
+    public void setSceneDivList(List<Division> sceneDivList) {
+        this.sceneDivList = sceneDivList;
+    }
+
+
+}//class
+
+/*
+//###### 旧版 main() version when [corps.Division] ######
 package book2General.view;
 
 import java.awt.BorderLayout;
@@ -129,3 +276,4 @@ public class BattleGameView extends JFrame{
     }//buildDivision()
 
 }//class
+*/
