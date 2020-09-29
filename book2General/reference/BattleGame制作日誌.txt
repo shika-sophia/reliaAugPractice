@@ -375,3 +375,39 @@ jspファイルを使わないと無理なような・・
 プログラムの作り方、そうやって作っていくのですね。
 
 
+◆自主制作 13日目 / 2020-09-29 (火) / 最終日 / ICT研修センター(西天満)
+＊[book2General.BattleGame.main()]
+    ・昨日[corps] -> [corpsRevision]へ転換し、今までのmain()以下の全体に影響するので新版に更新
+    ・改名[corpsRevision.ExecuteCorps] -> [DataFileReader]
+    ・今までList<Division>などを[BattleGame.main()]のフィールド保存にしていたが、
+        [DataFileReader]のフィールドに変更。
+    ・[logic.Scenario][view.BattleGameView]は単体テスト用main()付きだったが、
+        [BattleGame.main()]からの呼び出しとし、各クラスのmain()は削除し一般クラスで機能するよう修正。
+
+＊[corpsRevision.DataFileReader]
+    ・各勢力ごとにList<Division>を振り分ていたが、全検索用に全体のも作る
+＊[logic.Scenario]
+    ・登場武将をList<String>で登録していたが、viewでList<Division>を使うので
+    登場武将のList<Division>をフィールドに保持
+
+＊[view.BattleGameView]
+    ・[logic.Scenario]のシナリオ情報を引数で渡して、Division情報とManipulusを生成
+    ・SpringLayout 座標を全て指定するレイアウトに変更
+        -> Swingを勉強してから再チャレンジ
+
+＊[view.Manipulus]
+    ・[corpsRevision]に対応
+    ・[view.BattleGameView]からDivision情報を得て、Manipulusを生成して戻す
+
+
+【考察】
+出射さんのお話によると、このアプリは２年ぐらい掛かる分量らしい。
+プログラムを始める契機となった『信長の野望』のようなアプリを作るのが夢だったので、
+今後も何らかの形で続けていこうとは思う。
+
+２か月間、とても勉強になりました。
+こんなに、じっくり勉強に向き合える機会は なかなかないので
+とても貴重な時間を過ごさせて頂きました。
+本当に ありがとうございます。
+
+
